@@ -94,21 +94,17 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
 .ai-ocjena { font-size: 28px; font-weight: 700; color: #c9a84c; margin-bottom: 6px; }
 .ai-komentar { font-size: 13px; color: #e8f5e2; line-height: 1.6; margin-bottom: 8px; }
 .ai-ispravak { font-family: 'Amiri', serif; font-size: 20px; color: #1a9a64; direction: rtl; text-align: right; }
-
-/* PROFIL EKRAN */
 .profil-splash { background: #0f2d24; padding: 32px 20px 24px; text-align: center; border-bottom: 1px solid #1a4a38; }
 .profil-selam { font-size: 14px; color: #7ab89a; margin-bottom: 6px; }
 .profil-ime { font-size: 28px; font-weight: 700; color: #e8f5e2; margin-bottom: 4px; }
 .profil-podnaslov { font-size: 12px; color: #c9a84c; letter-spacing: 1px; }
 .ucenik-kartica { margin: 16px; border-radius: 16px; padding: 20px; background: linear-gradient(135deg, #1a4a38 0%, #0d2d1f 60%, #1a3a28 100%); border: 1px solid #c9a84c; position: relative; overflow: hidden; }
-.ucenik-kartica::before { content: '&#x646;'; font-family: 'Amiri', serif; font-size: 120px; color: rgba(201,168,76,0.06); position: absolute; top: -20px; right: -10px; line-height: 1; pointer-events: none; }
 .ucenik-kartica-gornji { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
 .ucenik-kartica-logo { font-family: 'Amiri', serif; font-size: 13px; color: #c9a84c; letter-spacing: 1px; }
 .ucenik-kartica-nivo { font-size: 10px; padding: 3px 10px; border-radius: 20px; background: rgba(201,168,76,0.15); color: #c9a84c; }
 .ucenik-kartica-ime { font-size: 20px; font-weight: 700; color: #e8f5e2; margin-bottom: 4px; }
 .ucenik-kartica-kurs { font-size: 12px; color: #7ab89a; margin-bottom: 16px; }
 .ucenik-kartica-stats { display: flex; gap: 20px; }
-.ucenik-kartica-stat { text-align: center; }
 .ucenik-kartica-stat-num { font-size: 22px; font-weight: 700; color: #c9a84c; display: block; }
 .ucenik-kartica-stat-label { font-size: 10px; color: #7ab89a; }
 .profil-streak { margin: 0 16px 16px; background: #0f2d24; border: 1px solid #1a4a38; border-radius: 12px; padding: 14px; }
@@ -117,6 +113,22 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
 .profil-info-red { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #0f2d24; border: 1px solid #1a4a38; border-radius: 10px; margin-bottom: 8px; }
 .profil-info-label { font-size: 12px; color: #7ab89a; }
 .profil-info-value { font-size: 13px; color: #e8f5e2; font-weight: 500; }
+/* NASTAVAK RECENICE */
+.nastavak-zadatak { background: #0f2d24; border: 1px solid #c9a84c; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.nastavak-zadatak-title { font-size: 11px; color: #c9a84c; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.nastavak-pocetak { font-family: 'Amiri', serif; font-size: 28px; color: #e8f5e2; direction: rtl; text-align: right; margin-bottom: 6px; line-height: 1.4; }
+.nastavak-prijevod { font-size: 12px; color: #7ab89a; margin-bottom: 16px; text-align: right; }
+.nastavak-opcije { display: flex; flex-direction: column; gap: 8px; }
+.nastavak-opcija { padding: 14px; border-radius: 10px; border: 1px solid #1a4a38; background: #0a1a14; cursor: pointer; text-align: right; direction: rtl; }
+.nastavak-opcija-ar { font-family: 'Amiri', serif; font-size: 22px; color: #e8f5e2; display: block; margin-bottom: 4px; }
+.nastavak-opcija-bs { font-size: 11px; color: #7ab89a; direction: ltr; text-align: left; }
+.nastavak-opcija.tacna { border-color: #1a9a64; background: rgba(26,154,100,0.1); }
+.nastavak-opcija.tacna .nastavak-opcija-ar { color: #1a9a64; }
+.nastavak-opcija.pogresna { border-color: #c0392b; background: rgba(192,57,43,0.1); }
+.nastavak-opcija.pogresna .nastavak-opcija-ar { color: #e74c3c; }
+.nastavak-feedback { padding: 12px 14px; border-radius: 10px; margin-top: 12px; font-size: 13px; line-height: 1.5; display: none; }
+.nastavak-feedback.tacno { background: rgba(26,154,100,0.15); border: 1px solid #1a9a64; color: #1a9a64; }
+.nastavak-feedback.pogresno { background: rgba(192,57,43,0.1); border: 1px solid #c0392b; color: #e74c3c; }
 </style>
 </head>
 <body>
@@ -129,7 +141,7 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
   </div>
   <div class="ucenik-kartica">
     <div class="ucenik-kartica-gornji">
-      <div class="ucenik-kartica-logo">&#x646;&#x642;&#x637;&#x629;</div>
+      <div class="ucenik-kartica-logo">نقطة</div>
       <span class="ucenik-kartica-nivo">Pocetnik</span>
     </div>
     <div class="ucenik-kartica-ime" id="kartica-ime">Ime Prezime</div>
@@ -228,6 +240,7 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
     </div>
   </div>
 </div>
+
 <div class="na-tab" id="tab-proba">
   <div class="proba-back" onclick="showTab('kursevi')">&#x2190; Nazad na kurseve</div>
   <div class="proba-header">
@@ -278,8 +291,28 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
       </div>
       <div class="proba-feedback" id="feedback"></div>
     </div>
+    <div class="nastavak-zadatak">
+      <div class="nastavak-zadatak-title">Zadatak 2 - Nastavak recenice</div>
+      <div class="nastavak-pocetak">الطَّالِبُ...</div>
+      <div class="nastavak-prijevod">Ucenik... (odaberi nastavak)</div>
+      <div class="nastavak-opcije">
+        <button class="nastavak-opcija" onclick="nastavak(this, false)">
+          <span class="nastavak-opcija-ar">في الْمَسْجِدِ</span>
+          <span class="nastavak-opcija-bs">u dzamiji</span>
+        </button>
+        <button class="nastavak-opcija" onclick="nastavak(this, true)">
+          <span class="nastavak-opcija-ar">فِي الْمَدْرَسَةِ</span>
+          <span class="nastavak-opcija-bs">u skoli (tacno)</span>
+        </button>
+        <button class="nastavak-opcija" onclick="nastavak(this, false)">
+          <span class="nastavak-opcija-ar">مِنَ الْبَيْتِ</span>
+          <span class="nastavak-opcija-bs">iz kuce</span>
+        </button>
+      </div>
+      <div class="nastavak-feedback" id="nastavak-feedback"></div>
+    </div>
     <div class="ai-zadatak">
-      <div class="ai-zadatak-title">Zadatak 2 - Napisi na arapskom</div>
+      <div class="ai-zadatak-title">Zadatak 3 - Napisi na arapskom</div>
       <div class="ai-zadatak-q">Dodaj odredjeni clan rijeci "ucenik" (talib) i napisi je na arapskom s hareketin.</div>
       <input class="ai-input" id="ai-odgovor" type="text" placeholder="&#x627;&#x643;&#x62A;&#x628; &#x647;&#x646;&#x627;...">
       <button class="ai-posalji" id="ai-btn" onclick="posaljiAI()">Posalji na ispravku</button>
@@ -293,7 +326,6 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
     <button class="na-btn na-btn-secondary" onclick="showTab('kursevi')">Nazad na kurseve</button>
   </div>
 </div>
-
 <div class="na-nav">
   <div class="na-nav-item active" id="nav-profil" onclick="showTab('profil')">
     <div class="na-nav-icon">&#x1F464;</div>
@@ -306,10 +338,6 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
   <div class="na-nav-item" id="nav-kursevi" onclick="showTab('kursevi')">
     <div class="na-nav-icon">&#x1F393;</div>
     <span>Kursevi</span>
-  </div>
-  <div class="na-nav-item" id="nav-proba" onclick="showTab('proba')" style="display:none;">
-    <div class="na-nav-icon">&#x2605;</div>
-    <span>Proba</span>
   </div>
 </div>
 
@@ -355,6 +383,21 @@ function provjeri(btn, tacno) {
     btn.classList.add('pogresna');
     feedback.className = 'proba-feedback pogresno';
     feedback.textContent = 'Nije tacno. Odredjeni clan el pise se kao al- na pocetku rijeci.';
+  }
+  feedback.style.display = 'block';
+}
+
+function nastavak(btn, tacno) {
+  document.querySelectorAll('.nastavak-opcija').forEach(function(o) { o.disabled = true; });
+  var feedback = document.getElementById('nastavak-feedback');
+  if (tacno) {
+    btn.classList.add('tacna');
+    feedback.className = 'nastavak-feedback tacno';
+    feedback.textContent = 'Tacno! "Fi al-madrasati" znaci "u skoli". Prijedlog fi zahtijeva genitiv (kasru) na kraju imenice.';
+  } else {
+    btn.classList.add('pogresna');
+    feedback.className = 'nastavak-feedback pogresno';
+    feedback.textContent = 'Nije tacno. Pokusaj ponovo — radi se o mjestu gdje ucenik provodi dan.';
   }
   feedback.style.display = 'block';
 }
