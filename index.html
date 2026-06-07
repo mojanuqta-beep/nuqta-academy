@@ -10,19 +10,12 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; min-height: 100vh; }
-.na-header { background: #0f2d24; padding: 20px 16px 16px; border-bottom: 1px solid #1a4a38; }
-.na-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-.na-logo-circle { width: 40px; height: 40px; background: #c9a84c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Amiri', serif; font-size: 18px; color: #0d1f1a; font-weight: 700; }
-.na-logo-text { font-size: 18px; font-weight: 700; color: #e8f5e2; }
-.na-logo-sub { font-size: 11px; color: #c9a84c; letter-spacing: 1px; text-transform: uppercase; }
-.na-greeting { font-size: 13px; color: #7ab89a; margin-bottom: 4px; }
-.na-stats-row { display: flex; gap: 8px; margin-top: 12px; }
-.na-stat { flex: 1; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); border-radius: 10px; padding: 10px 8px; text-align: center; }
-.na-stat-num { font-size: 20px; font-weight: 700; color: #c9a84c; display: block; }
-.na-stat-label { font-size: 10px; color: #7ab89a; margin-top: 2px; display: block; }
-.na-progress-bar { background: #1a4a38; border-radius: 4px; height: 6px; margin-top: 12px; overflow: hidden; }
-.na-progress-fill { height: 100%; background: #c9a84c; border-radius: 4px; width: 35%; }
-.na-progress-label { font-size: 11px; color: #7ab89a; margin-top: 6px; display: flex; justify-content: space-between; }
+.na-nav { display: flex; background: #0a1a14; border-top: 1px solid #1a4a38; padding: 8px 0 4px; position: fixed; bottom: 0; left: 0; right: 0; }
+.na-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 0; cursor: pointer; color: #3a6b56; font-size: 10px; }
+.na-nav-item.active { color: #c9a84c; }
+.na-nav-icon { font-size: 22px; }
+.na-tab { display: none; padding-bottom: 80px; }
+.na-tab.visible { display: block; }
 .na-section { padding: 16px; }
 .na-section-title { font-size: 12px; color: #c9a84c; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
 .na-lesson-card { background: #0f2d24; border: 1px solid #1a4a38; border-radius: 12px; padding: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
@@ -42,16 +35,11 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
 .na-btn { width: 100%; padding: 14px; border-radius: 12px; border: none; font-family: 'Tajawal', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 8px; }
 .na-btn-primary { background: #c9a84c; color: #0d1f1a; }
 .na-btn-secondary { background: transparent; border: 1px solid #1a4a38; color: #7ab89a; }
-.na-nav { display: flex; background: #0a1a14; border-top: 1px solid #1a4a38; padding: 8px 0 4px; position: fixed; bottom: 0; left: 0; right: 0; }
-.na-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 0; cursor: pointer; color: #3a6b56; font-size: 10px; }
-.na-nav-item.active { color: #c9a84c; }
-.na-nav-icon { font-size: 22px; }
-.na-tab { display: none; padding-bottom: 80px; }
-.na-tab.visible { display: block; }
 .na-streak-row { display: flex; gap: 6px; margin-top: 12px; }
 .na-day { flex: 1; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; }
 .day-done { background: rgba(201,168,76,0.3); color: #c9a84c; }
 .day-today { background: #c9a84c; color: #0d1f1a; }
+.day-empty { background: rgba(255,255,255,0.05); color: #3a6b56; }
 .na-kurs-card { background: #0f2d24; border: 1px solid #1a4a38; border-radius: 14px; padding: 16px; margin-bottom: 12px; }
 .na-kurs-card.unlocked { border-color: #c9a84c; }
 .na-kurs-card.locked-card { opacity: 0.75; }
@@ -106,29 +94,94 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
 .ai-ocjena { font-size: 28px; font-weight: 700; color: #c9a84c; margin-bottom: 6px; }
 .ai-komentar { font-size: 13px; color: #e8f5e2; line-height: 1.6; margin-bottom: 8px; }
 .ai-ispravak { font-family: 'Amiri', serif; font-size: 20px; color: #1a9a64; direction: rtl; text-align: right; }
+
+/* PROFIL EKRAN */
+.profil-splash { background: #0f2d24; padding: 32px 20px 24px; text-align: center; border-bottom: 1px solid #1a4a38; }
+.profil-selam { font-size: 14px; color: #7ab89a; margin-bottom: 6px; }
+.profil-ime { font-size: 28px; font-weight: 700; color: #e8f5e2; margin-bottom: 4px; }
+.profil-podnaslov { font-size: 12px; color: #c9a84c; letter-spacing: 1px; }
+.ucenik-kartica { margin: 16px; border-radius: 16px; padding: 20px; background: linear-gradient(135deg, #1a4a38 0%, #0d2d1f 60%, #1a3a28 100%); border: 1px solid #c9a84c; position: relative; overflow: hidden; }
+.ucenik-kartica::before { content: '&#x646;'; font-family: 'Amiri', serif; font-size: 120px; color: rgba(201,168,76,0.06); position: absolute; top: -20px; right: -10px; line-height: 1; pointer-events: none; }
+.ucenik-kartica-gornji { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+.ucenik-kartica-logo { font-family: 'Amiri', serif; font-size: 13px; color: #c9a84c; letter-spacing: 1px; }
+.ucenik-kartica-nivo { font-size: 10px; padding: 3px 10px; border-radius: 20px; background: rgba(201,168,76,0.15); color: #c9a84c; }
+.ucenik-kartica-ime { font-size: 20px; font-weight: 700; color: #e8f5e2; margin-bottom: 4px; }
+.ucenik-kartica-kurs { font-size: 12px; color: #7ab89a; margin-bottom: 16px; }
+.ucenik-kartica-stats { display: flex; gap: 20px; }
+.ucenik-kartica-stat { text-align: center; }
+.ucenik-kartica-stat-num { font-size: 22px; font-weight: 700; color: #c9a84c; display: block; }
+.ucenik-kartica-stat-label { font-size: 10px; color: #7ab89a; }
+.profil-streak { margin: 0 16px 16px; background: #0f2d24; border: 1px solid #1a4a38; border-radius: 12px; padding: 14px; }
+.profil-streak-title { font-size: 11px; color: #c9a84c; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.profil-info-lista { margin: 0 16px 16px; }
+.profil-info-red { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #0f2d24; border: 1px solid #1a4a38; border-radius: 10px; margin-bottom: 8px; }
+.profil-info-label { font-size: 12px; color: #7ab89a; }
+.profil-info-value { font-size: 13px; color: #e8f5e2; font-weight: 500; }
 </style>
 </head>
 <body>
 
-<div class="na-header">
-  <div class="na-logo-row">
-    <div class="na-logo-circle">&#x646;</div>
-    <div>
-      <div class="na-logo-text">Nuqta Academy</div>
-      <div class="na-logo-sub">Arapski jezik</div>
+<div class="na-tab visible" id="tab-profil">
+  <div class="profil-splash">
+    <div class="profil-selam">Esselamu alejkum,</div>
+    <div class="profil-ime" id="profil-ime">Uceniku</div>
+    <div class="profil-podnaslov">Nuqta Academy</div>
+  </div>
+  <div class="ucenik-kartica">
+    <div class="ucenik-kartica-gornji">
+      <div class="ucenik-kartica-logo">&#x646;&#x642;&#x637;&#x629;</div>
+      <span class="ucenik-kartica-nivo">Pocetnik</span>
+    </div>
+    <div class="ucenik-kartica-ime" id="kartica-ime">Ime Prezime</div>
+    <div class="ucenik-kartica-kurs">Arapska gramatika — pocetni nivo</div>
+    <div class="ucenik-kartica-stats">
+      <div class="ucenik-kartica-stat">
+        <span class="ucenik-kartica-stat-num">85</span>
+        <span class="ucenik-kartica-stat-label">Bodova</span>
+      </div>
+      <div class="ucenik-kartica-stat">
+        <span class="ucenik-kartica-stat-num">7</span>
+        <span class="ucenik-kartica-stat-label">Dan streak</span>
+      </div>
+      <div class="ucenik-kartica-stat">
+        <span class="ucenik-kartica-stat-num">3</span>
+        <span class="ucenik-kartica-stat-label">Lekcije</span>
+      </div>
     </div>
   </div>
-  <div class="na-greeting" id="greeting">Esselamu alejkum, ucenicu</div>
-  <div class="na-stats-row">
-    <div class="na-stat"><span class="na-stat-num">7</span><span class="na-stat-label">Dan streak</span></div>
-    <div class="na-stat"><span class="na-stat-num">3</span><span class="na-stat-label">Lekcije</span></div>
-    <div class="na-stat"><span class="na-stat-num">85</span><span class="na-stat-label">Bodova</span></div>
+  <div class="profil-streak">
+    <div class="profil-streak-title">Sedmica</div>
+    <div class="na-streak-row">
+      <div class="na-day day-done">P</div>
+      <div class="na-day day-done">U</div>
+      <div class="na-day day-done">S</div>
+      <div class="na-day day-done">C</div>
+      <div class="na-day day-done">P</div>
+      <div class="na-day day-done">S</div>
+      <div class="na-day day-today">N</div>
+    </div>
   </div>
-  <div class="na-progress-bar"><div class="na-progress-fill"></div></div>
-  <div class="na-progress-label"><span>Napredak modula</span><span>35%</span></div>
+  <div class="profil-info-lista">
+    <div class="profil-info-red">
+      <span class="profil-info-label">Kurs</span>
+      <span class="profil-info-value">Arapska gramatika</span>
+    </div>
+    <div class="profil-info-red">
+      <span class="profil-info-label">Nivo</span>
+      <span class="profil-info-value">Pocetnik</span>
+    </div>
+    <div class="profil-info-red">
+      <span class="profil-info-label">Tacnost odgovora</span>
+      <span class="profil-info-value">78%</span>
+    </div>
+    <div class="profil-info-red">
+      <span class="profil-info-label">Status</span>
+      <span class="profil-info-value" style="color:#1a9a64;">Aktivan</span>
+    </div>
+  </div>
 </div>
 
-<div class="na-tab visible" id="tab-lekcije">
+<div class="na-tab" id="tab-lekcije">
   <div class="na-section">
     <div class="na-section-title">Modul 1 - Arapska slova</div>
     <div class="na-lesson-card">
@@ -175,7 +228,6 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
     </div>
   </div>
 </div>
-
 <div class="na-tab" id="tab-proba">
   <div class="proba-back" onclick="showTab('kursevi')">&#x2190; Nazad na kurseve</div>
   <div class="proba-header">
@@ -208,7 +260,7 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
       </div>
     </div>
     <div class="proba-zadatak">
-      <div class="proba-zadatak-title">Zadatak 1 — Visestruki izbor</div>
+      <div class="proba-zadatak-title">Zadatak 1 - Visestruki izbor</div>
       <div class="proba-zadatak-q">Koja od ovih rijeci ima odredjeni clan el?</div>
       <div class="proba-opcije">
         <button class="proba-opcija" onclick="provjeri(this, false)">
@@ -227,7 +279,7 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
       <div class="proba-feedback" id="feedback"></div>
     </div>
     <div class="ai-zadatak">
-      <div class="ai-zadatak-title">Zadatak 2 — Napisi na arapskom</div>
+      <div class="ai-zadatak-title">Zadatak 2 - Napisi na arapskom</div>
       <div class="ai-zadatak-q">Dodaj odredjeni clan rijeci "ucenik" (talib) i napisi je na arapskom s hareketin.</div>
       <input class="ai-input" id="ai-odgovor" type="text" placeholder="&#x627;&#x643;&#x62A;&#x628; &#x647;&#x646;&#x627;...">
       <button class="ai-posalji" id="ai-btn" onclick="posaljiAI()">Posalji na ispravku</button>
@@ -241,45 +293,13 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
     <button class="na-btn na-btn-secondary" onclick="showTab('kursevi')">Nazad na kurseve</button>
   </div>
 </div>
-<div class="na-tab" id="tab-vjezba">
-  <div class="na-section">
-    <div class="na-section-title">Dnevna vjezba</div>
-    <div style="background:#0f2d24;border:1px solid #1a4a38;border-radius:12px;padding:16px;margin-bottom:16px;text-align:center;">
-      <span style="font-family:'Amiri',serif;font-size:64px;color:#c9a84c;display:block;margin-bottom:8px;">&#x628;</span>
-      <div style="font-size:13px;color:#7ab89a;">Ba - drugi harf arapskog alfabeta</div>
-    </div>
-    <button class="na-btn na-btn-primary">Pocni vjezbu</button>
-    <button class="na-btn na-btn-secondary">Vise o ovom harfu</button>
-  </div>
-</div>
-
-<div class="na-tab" id="tab-napredak">
-  <div class="na-section">
-    <div class="na-section-title">Moj napredak</div>
-    <div class="na-streak-row">
-      <div class="na-day day-done">P</div>
-      <div class="na-day day-done">U</div>
-      <div class="na-day day-done">S</div>
-      <div class="na-day day-done">C</div>
-      <div class="na-day day-done">P</div>
-      <div class="na-day day-done">S</div>
-      <div class="na-day day-today">N</div>
-    </div>
-    <div class="na-lesson-card" style="margin-top:16px;">
-      <div class="na-lesson-icon current">&#x2605;</div>
-      <div class="na-lesson-info"><div class="na-lesson-title">Ukupno bodova</div><div class="na-lesson-sub">Ovaj mjesec</div></div>
-      <span style="font-size:24px;font-weight:700;color:#c9a84c;">85</span>
-    </div>
-    <div class="na-lesson-card">
-      <div class="na-lesson-icon done">%</div>
-      <div class="na-lesson-info"><div class="na-lesson-title">Tacnost odgovora</div><div class="na-lesson-sub">Zadnjih 10 zadataka</div></div>
-      <span style="font-size:24px;font-weight:700;color:#c9a84c;">78%</span>
-    </div>
-  </div>
-</div>
 
 <div class="na-nav">
-  <div class="na-nav-item active" id="nav-lekcije" onclick="showTab('lekcije')">
+  <div class="na-nav-item active" id="nav-profil" onclick="showTab('profil')">
+    <div class="na-nav-icon">&#x1F464;</div>
+    <span>Profil</span>
+  </div>
+  <div class="na-nav-item" id="nav-lekcije" onclick="showTab('lekcije')">
     <div class="na-nav-icon">&#x1F4DA;</div>
     <span>Lekcije</span>
   </div>
@@ -287,25 +307,26 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
     <div class="na-nav-icon">&#x1F393;</div>
     <span>Kursevi</span>
   </div>
-  <div class="na-nav-item" id="nav-vjezba" onclick="showTab('vjezba')">
-    <div class="na-nav-icon">&#x270F;&#xFE0F;</div>
-    <span>Vjezba</span>
-  </div>
-  <div class="na-nav-item" id="nav-napredak" onclick="showTab('napredak')">
-    <div class="na-nav-icon">&#x1F4CA;</div>
-    <span>Napredak</span>
+  <div class="na-nav-item" id="nav-proba" onclick="showTab('proba')" style="display:none;">
+    <div class="na-nav-icon">&#x2605;</div>
+    <span>Proba</span>
   </div>
 </div>
 
 <script>
+var korisnikIme = 'Uceniku';
+
 if (window.Telegram && window.Telegram.WebApp) {
   var tg = window.Telegram.WebApp;
   tg.expand();
   var user = tg.initDataUnsafe && tg.initDataUnsafe.user;
   if (user && user.first_name) {
-    document.getElementById('greeting').textContent = 'Esselamu alejkum, ' + user.first_name;
+    korisnikIme = user.first_name;
+    document.getElementById('profil-ime').textContent = korisnikIme;
+    document.getElementById('kartica-ime').textContent = user.first_name + (user.last_name ? ' ' + user.last_name : '');
   }
 }
+
 function showTab(name) {
   document.querySelectorAll('.na-tab').forEach(function(t) { t.classList.remove('visible'); });
   document.querySelectorAll('.na-nav-item').forEach(function(n) { n.classList.remove('active'); });
@@ -313,6 +334,7 @@ function showTab(name) {
   var navEl = document.getElementById('nav-' + name);
   if (navEl) navEl.classList.add('active');
 }
+
 function openWhop() {
   var url = 'https://whop.com/nuqta-academy';
   if (window.Telegram && window.Telegram.WebApp) {
@@ -321,6 +343,7 @@ function openWhop() {
     window.open(url, '_blank');
   }
 }
+
 function provjeri(btn, tacno) {
   document.querySelectorAll('.proba-opcija').forEach(function(o) { o.disabled = true; });
   var feedback = document.getElementById('feedback');
@@ -335,6 +358,7 @@ function provjeri(btn, tacno) {
   }
   feedback.style.display = 'block';
 }
+
 function posaljiAI() {
   var odgovor = document.getElementById('ai-odgovor').value.trim();
   if (!odgovor) { alert('Upisite odgovor prije slanja.'); return; }
