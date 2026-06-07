@@ -536,5 +536,49 @@ function openProba() {
   showTab('lekcije');
 }
 </script>
+<div class="na-tab" id="tab-kursevi">
+  <div class="na-section">
+    <div class="na-section-title">Moji kursevi</div>
+    <div class="na-kurs-card unlocked">
+      <div class="na-kurs-badge-row">
+        <span class="na-kurs-tag tag-aktivan">✓ Aktivan</span>
+      </div>
+      <div class="na-kurs-title">Arapska gramatika — pocetni nivo</div>
+      <div class="na-kurs-desc">Nauci arapsko pismo, harfove i osnove gramatike. Idealno za pocetnike bez predznanja.</div>
+      <div class="na-kurs-meta">
+        <span class="na-kurs-meta-item">12 modula</span>
+        <span class="na-kurs-meta-item">36 sati</span>
+        <span class="na-kurs-meta-item">Pocetnik</span>
+      </div>
+      <button class="na-kurs-btn kurs-btn-otvori" onclick="showTab('lekcije')">Nastavi ucenje</button>
+    </div>
+    <div class="na-kurs-card locked-card">
+      <div class="na-kurs-badge-row">
+        <span class="na-kurs-tag tag-zakljucan">Zakljucano</span>
+      </div>
+      <div class="na-kurs-title">Arapska gramatika — srednji nivo</div>
+      <div class="na-kurs-desc">Produbi znanje gramatike i glagolskih oblika. Preduvjet: pocetni nivo.</div>
+      <div class="na-kurs-meta">
+        <span class="na-kurs-meta-item">10 modula</span>
+        <span class="na-kurs-meta-item">30 sati</span>
+        <span class="na-kurs-meta-item">Srednji</span>
+      </div>
+      <button class="na-kurs-btn kurs-btn-kupi" onclick="openWhop('srednji')">Kupi - 35 EUR</button>
+    </div>
+    <div class="na-kurs-card">
+      <div class="na-kurs-badge-row">
+        <span class="na-kurs-tag tag-besplatno">Besplatno</span>
+      </div>
+      <div class="na-kurs-title">Probna lekcija — upoznaj Nuqta</div>
+      <div class="na-kurs-desc">Jedna besplatna lekcija da vidis kako izgleda ucenje na Nuqta Academy.</div>
+      <div class="na-kurs-meta">
+        <span class="na-kurs-meta-item">1 lekcija</span>
+        <span class="na-kurs-meta-item">15 min</span>
+        <span class="na-kurs-meta-item">Bez placanja</span>
+      </div>
+      <button class="na-kurs-btn kurs-btn-proba" onclick="openProba()">Pogledaj besplatno</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
