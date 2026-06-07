@@ -113,7 +113,6 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
 .profil-info-red { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #0f2d24; border: 1px solid #1a4a38; border-radius: 10px; margin-bottom: 8px; }
 .profil-info-label { font-size: 12px; color: #7ab89a; }
 .profil-info-value { font-size: 13px; color: #e8f5e2; font-weight: 500; }
-/* NASTAVAK RECENICE */
 .nastavak-zadatak { background: #0f2d24; border: 1px solid #c9a84c; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
 .nastavak-zadatak-title { font-size: 11px; color: #c9a84c; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
 .nastavak-pocetak { font-family: 'Amiri', serif; font-size: 28px; color: #e8f5e2; direction: rtl; text-align: right; margin-bottom: 6px; line-height: 1.4; }
@@ -129,6 +128,33 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
 .nastavak-feedback { padding: 12px 14px; border-radius: 10px; margin-top: 12px; font-size: 13px; line-height: 1.5; display: none; }
 .nastavak-feedback.tacno { background: rgba(26,154,100,0.15); border: 1px solid #1a9a64; color: #1a9a64; }
 .nastavak-feedback.pogresno { background: rgba(192,57,43,0.1); border: 1px solid #c0392b; color: #e74c3c; }
+/* PREVOD ZADATAK */
+.prevod-zadatak { background: #0f2d24; border: 1px solid #1a4a38; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.prevod-zadatak-title { font-size: 11px; color: #c9a84c; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.prevod-bosanski { font-size: 18px; color: #e8f5e2; margin-bottom: 6px; font-weight: 500; }
+.prevod-hint { font-size: 12px; color: #7ab89a; margin-bottom: 14px; }
+.prevod-input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #1a4a38; background: #0a1a14; color: #e8f5e2; font-size: 18px; font-family: 'Amiri', serif; margin-bottom: 10px; direction: rtl; text-align: right; }
+.prevod-input:focus { outline: none; border-color: #c9a84c; }
+.prevod-posalji { width: 100%; padding: 13px; border-radius: 10px; border: none; background: #c9a84c; color: #0d1f1a; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Tajawal', sans-serif; }
+.prevod-posalji:disabled { opacity: 0.5; }
+.prevod-rezultat { display: none; margin-top: 14px; padding: 14px; border-radius: 10px; border: 1px solid #1a4a38; background: #0a1a14; }
+.prevod-ocjena { font-size: 26px; font-weight: 700; color: #c9a84c; margin-bottom: 6px; }
+.prevod-komentar { font-size: 13px; color: #e8f5e2; line-height: 1.6; margin-bottom: 8px; }
+.prevod-ispravak { font-family: 'Amiri', serif; font-size: 22px; color: #1a9a64; direction: rtl; text-align: right; }
+/* SPAJANJE ZADATAK */
+.spajanje-zadatak { background: #0f2d24; border: 1px solid #1a4a38; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.spajanje-zadatak-title { font-size: 11px; color: #c9a84c; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.spajanje-zadatak-q { font-size: 14px; color: #7ab89a; margin-bottom: 14px; }
+.spajanje-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.spajanje-kolona { display: flex; flex-direction: column; gap: 8px; }
+.spajanje-kartica { padding: 12px 10px; border-radius: 10px; border: 2px solid #1a4a38; background: #0a1a14; cursor: pointer; text-align: center; transition: all 0.2s; user-select: none; }
+.spajanje-kartica-ar { font-family: 'Amiri', serif; font-size: 20px; color: #e8f5e2; display: block; direction: rtl; }
+.spajanje-kartica-bs { font-size: 13px; color: #e8f5e2; }
+.spajanje-kartica.odabrana { border-color: #c9a84c; background: rgba(201,168,76,0.1); }
+.spajanje-kartica.sparena { border-color: #1a9a64; background: rgba(26,154,100,0.1); opacity: 0.7; cursor: default; }
+.spajanje-kartica.pogresna-flash { border-color: #c0392b; background: rgba(192,57,43,0.1); }
+.spajanje-rezultat { padding: 12px; border-radius: 10px; margin-top: 8px; font-size: 13px; display: none; }
+.spajanje-rezultat.gotovo { background: rgba(26,154,100,0.15); border: 1px solid #1a9a64; color: #1a9a64; }
 </style>
 </head>
 <body>
@@ -272,6 +298,7 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
         <div class="proba-example-ar">&#x637;&#x64E;&#x627;&#x644;&#x650;&#x628; / &#x627;&#x644;&#x637;&#x64E;&#x627;&#x644;&#x650;&#x628;</div>
       </div>
     </div>
+
     <div class="proba-zadatak">
       <div class="proba-zadatak-title">Zadatak 1 - Visestruki izbor</div>
       <div class="proba-zadatak-q">Koja od ovih rijeci ima odredjeni clan el?</div>
@@ -291,29 +318,74 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
       </div>
       <div class="proba-feedback" id="feedback"></div>
     </div>
+
     <div class="nastavak-zadatak">
       <div class="nastavak-zadatak-title">Zadatak 2 - Nastavak recenice</div>
-      <div class="nastavak-pocetak">الطَّالِبُ...</div>
+      <div class="nastavak-pocetak">&#x627;&#x644;&#x637;&#x64E;&#x627;&#x644;&#x650;&#x628;&#x64F;...</div>
       <div class="nastavak-prijevod">Ucenik... (odaberi nastavak)</div>
       <div class="nastavak-opcije">
         <button class="nastavak-opcija" onclick="nastavak(this, false)">
-          <span class="nastavak-opcija-ar">في الْمَسْجِدِ</span>
+          <span class="nastavak-opcija-ar">&#x641;&#x650;&#x64A; &#x627;&#x644;&#x652;&#x645;&#x64E;&#x633;&#x652;&#x62C;&#x650;&#x62F;&#x650;</span>
           <span class="nastavak-opcija-bs">u dzamiji</span>
         </button>
         <button class="nastavak-opcija" onclick="nastavak(this, true)">
-          <span class="nastavak-opcija-ar">فِي الْمَدْرَسَةِ</span>
-          <span class="nastavak-opcija-bs">u skoli </span>
+          <span class="nastavak-opcija-ar">&#x641;&#x650;&#x64A; &#x627;&#x644;&#x652;&#x645;&#x064E;&#x062F;&#x652;&#x631;&#x064E;&#x633;&#x064E;&#x629;&#x650;</span>
+          <span class="nastavak-opcija-bs">u skoli</span>
         </button>
         <button class="nastavak-opcija" onclick="nastavak(this, false)">
-          <span class="nastavak-opcija-ar">مِنَ الْبَيْتِ</span>
+          <span class="nastavak-opcija-ar">&#x645;&#x650;&#x646;&#x64E; &#x627;&#x644;&#x652;&#x628;&#x064E;&#x064A;&#x652;&#x062A;&#x650;</span>
           <span class="nastavak-opcija-bs">iz kuce</span>
         </button>
       </div>
       <div class="nastavak-feedback" id="nastavak-feedback"></div>
     </div>
+
+    <div class="prevod-zadatak">
+      <div class="prevod-zadatak-title">Zadatak 3 - Prevod na arapski</div>
+      <div class="prevod-bosanski">Ucenik je u skoli.</div>
+      <div class="prevod-hint">Hint: koristis glagol kana ili jednostavnu nominalnu recenicu</div>
+      <input class="prevod-input" id="prevod-odgovor" type="text" placeholder="&#x627;&#x643;&#x62A;&#x628; &#x647;&#x646;&#x627;...">
+      <button class="prevod-posalji" id="prevod-btn" onclick="posaljiPrevod()">Posalji prijevod</button>
+      <div class="prevod-rezultat" id="prevod-rezultat">
+        <div class="prevod-ocjena" id="prevod-ocjena"></div>
+        <div class="prevod-komentar" id="prevod-komentar"></div>
+        <div class="prevod-ispravak" id="prevod-ispravak"></div>
+      </div>
+    </div>
+
+    <div class="spajanje-zadatak">
+      <div class="spajanje-zadatak-title">Zadatak 4 - Spajanje</div>
+      <div class="spajanje-zadatak-q">Spoji arapsku rijec s njenim prijevodom:</div>
+      <div class="spajanje-grid">
+        <div class="spajanje-kolona" id="kolona-ar">
+          <div class="spajanje-kartica" onclick="odaberiKarticu(this)" data-par="1">
+            <span class="spajanje-kartica-ar">&#x643;&#x650;&#x62A;&#x64E;&#x627;&#x628;&#x64C;</span>
+          </div>
+          <div class="spajanje-kartica" onclick="odaberiKarticu(this)" data-par="2">
+            <span class="spajanje-kartica-ar">&#x628;&#x064E;&#x064A;&#x0652;&#x062A;&#x064C;</span>
+          </div>
+          <div class="spajanje-kartica" onclick="odaberiKarticu(this)" data-par="3">
+            <span class="spajanje-kartica-ar">&#x637;&#x64E;&#x627;&#x644;&#x650;&#x628;&#x064C;</span>
+          </div>
+        </div>
+        <div class="spajanje-kolona" id="kolona-bs">
+          <div class="spajanje-kartica" onclick="odaberiKarticu(this)" data-par="2">
+            <span class="spajanje-kartica-bs">kuca</span>
+          </div>
+          <div class="spajanje-kartica" onclick="odaberiKarticu(this)" data-par="3">
+            <span class="spajanje-kartica-bs">ucenik</span>
+          </div>
+          <div class="spajanje-kartica" onclick="odaberiKarticu(this)" data-par="1">
+            <span class="spajanje-kartica-bs">knjiga</span>
+          </div>
+        </div>
+      </div>
+      <div class="spajanje-rezultat" id="spajanje-rezultat"></div>
+    </div>
+
     <div class="ai-zadatak">
-      <div class="ai-zadatak-title">Zadatak 3 - Napisi na arapskom</div>
-      <div class="ai-zadatak-q">Dodaj odredjeni clan rijeci "ucenik" (talib) i napisi je na arapskom s hareketin.</div>
+      <div class="ai-zadatak-title">Zadatak 5 - Slobodno pisanje</div>
+      <div class="ai-zadatak-q">Napisi bilo koju arapsku recenicu s odredjenim clanom. AI ce je ispraviti.</div>
       <input class="ai-input" id="ai-odgovor" type="text" placeholder="&#x627;&#x643;&#x62A;&#x628; &#x647;&#x646;&#x627;...">
       <button class="ai-posalji" id="ai-btn" onclick="posaljiAI()">Posalji na ispravku</button>
       <div class="ai-rezultat" id="ai-rezultat">
@@ -322,6 +394,7 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
         <div class="ai-ispravak" id="ai-ispravak"></div>
       </div>
     </div>
+
     <button class="na-btn na-btn-primary" onclick="openWhop()" style="margin-top:8px;">Nastavi ucenje - 25 EUR</button>
     <button class="na-btn na-btn-secondary" onclick="showTab('kursevi')">Nazad na kurseve</button>
   </div>
@@ -343,6 +416,7 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
 
 <script>
 var korisnikIme = 'Uceniku';
+var odabranaKartica = null;
 
 if (window.Telegram && window.Telegram.WebApp) {
   var tg = window.Telegram.WebApp;
@@ -393,13 +467,87 @@ function nastavak(btn, tacno) {
   if (tacno) {
     btn.classList.add('tacna');
     feedback.className = 'nastavak-feedback tacno';
-    feedback.textContent = 'Tacno! "Fi al-madrasati" znaci "u skoli". Prijedlog fi zahtijeva genitiv (kasru) na kraju imenice.';
+    feedback.textContent = 'Tacno! Fi al-madrasati znaci u skoli. Prijedlog fi zahtijeva genitiv (kasru) na kraju imenice.';
   } else {
     btn.classList.add('pogresna');
     feedback.className = 'nastavak-feedback pogresno';
     feedback.textContent = 'Nije tacno. Pokusaj ponovo — radi se o mjestu gdje ucenik provodi dan.';
   }
   feedback.style.display = 'block';
+}
+
+function posaljiPrevod() {
+  var odgovor = document.getElementById('prevod-odgovor').value.trim();
+  if (!odgovor) { alert('Upisite prijevod prije slanja.'); return; }
+  var btn = document.getElementById('prevod-btn');
+  btn.disabled = true;
+  btn.textContent = 'Provjerava...';
+  fetch('https://hook.eu1.make.com/y39tvs22wgu6kdky5tu5xutn9es89joq', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      pitanje: 'Prevedi na arapski: Ucenik je u skoli.',
+      odgovor: odgovor,
+      jezik: 'bosanski',
+      nivo: 'pocetnik'
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    document.getElementById('prevod-ocjena').textContent = 'Ocjena: ' + (data.ocjena || '-') + '/100';
+    document.getElementById('prevod-komentar').textContent = data.komentar || '';
+    var ispravak = document.getElementById('prevod-ispravak');
+    ispravak.textContent = data.ispravak ? 'Ispravno: ' + data.ispravak : '';
+    document.getElementById('prevod-rezultat').style.display = 'block';
+    btn.textContent = 'Posalji ponovo';
+    btn.disabled = false;
+  })
+  .catch(function() {
+    alert('Greska pri slanju.');
+    btn.textContent = 'Posalji prijevod';
+    btn.disabled = false;
+  });
+}
+
+function odaberiKarticu(kartica) {
+  if (kartica.classList.contains('sparena')) return;
+  if (!odabranaKartica) {
+    if (odabranaKartica) odabranaKartica.classList.remove('odabrana');
+    kartica.classList.add('odabrana');
+    odabranaKartica = kartica;
+    return;
+  }
+  if (odabranaKartica === kartica) {
+    kartica.classList.remove('odabrana');
+    odabranaKartica = null;
+    return;
+  }
+  var par1 = odabranaKartica.getAttribute('data-par');
+  var par2 = kartica.getAttribute('data-par');
+  if (par1 === par2) {
+    odabranaKartica.classList.remove('odabrana');
+    odabranaKartica.classList.add('sparena');
+    kartica.classList.add('sparena');
+    odabranaKartica = null;
+    var sparene = document.querySelectorAll('.spajanje-kartica.sparena');
+    if (sparene.length === 6) {
+      var rez = document.getElementById('spajanje-rezultat');
+      rez.className = 'spajanje-rezultat gotovo';
+      rez.textContent = 'Bravo! Sve rijeci su tacno sparene!';
+      rez.style.display = 'block';
+    }
+  } else {
+    odabranaKartica.classList.remove('odabrana');
+    odabranaKartica.classList.add('pogresna-flash');
+    kartica.classList.add('pogresna-flash');
+    var a = odabranaKartica;
+    var b = kartica;
+    setTimeout(function() {
+      a.classList.remove('pogresna-flash');
+      b.classList.remove('pogresna-flash');
+    }, 600);
+    odabranaKartica = null;
+  }
 }
 
 function posaljiAI() {
@@ -412,7 +560,7 @@ function posaljiAI() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      pitanje: 'Dodaj odredjeni clan rijeci talib (ucenik) i napisi je s hareketin.',
+      pitanje: 'Napisi bilo koju arapsku recenicu s odredjenim clanom el.',
       odgovor: odgovor,
       jezik: 'bosanski',
       nivo: 'pocetnik'
@@ -420,21 +568,16 @@ function posaljiAI() {
   })
   .then(function(r) { return r.json(); })
   .then(function(data) {
-    var rezultat = document.getElementById('ai-rezultat');
     document.getElementById('ai-ocjena').textContent = 'Ocjena: ' + (data.ocjena || '-') + '/100';
     document.getElementById('ai-komentar').textContent = data.komentar || '';
     var ispravak = document.getElementById('ai-ispravak');
-    if (data.ispravak) {
-      ispravak.textContent = 'Ispravno: ' + data.ispravak;
-    } else {
-      ispravak.textContent = '';
-    }
-    rezultat.style.display = 'block';
+    ispravak.textContent = data.ispravak ? 'Ispravno: ' + data.ispravak : '';
+    document.getElementById('ai-rezultat').style.display = 'block';
     btn.textContent = 'Posalji ponovo';
     btn.disabled = false;
   })
   .catch(function() {
-    alert('Greska pri slanju. Pokusaj ponovo.');
+    alert('Greska pri slanju.');
     btn.textContent = 'Posalji na ispravku';
     btn.disabled = false;
   });
