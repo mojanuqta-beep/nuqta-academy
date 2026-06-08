@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuqta Academy — Nauči arapski jezik na bosanskom</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1a3a2a;
+    --green-mid: #2d5a3d;
+    --green-light: #3d7a52;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f7f3eb;
+    --cream-dark: #ede8dc;
+    --text: #1e1e1e;
+    --text-muted: #5a5a5a;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(26, 58, 42, 0.97);
+    backdrop-filter: blur(8px);
+    padding: 16px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .nav-logo {
+    font-family: 'Amiri', serif;
+    color: var(--gold);
+    font-size: 1.5rem;
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .nav-logo-latin {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--green-dark);
+    padding: 9px 22px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: background 0.2s;
+  }
+
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--green-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: 'ن';
+    font-family: 'Amiri', serif;
+    font-size: 420px;
+    color: rgba(255,255,255,0.025);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -54%);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+
+  .hero-title {
+    font-family: 'Amiri', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--white);
+    line-height: 1.25;
+    max-width: 700px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+
+  .hero-title em {
+    color: var(--gold-light);
+    font-style: normal;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 480px;
+    margin-bottom: 44px;
+    font-weight: 300;
+    position: relative;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--green-dark);
+    padding: 14px 32px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: rgba(255,255,255,0.85);
+    padding: 14px 32px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 1rem;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.25);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.3);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-scroll::after {
+    content: '';
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(to bottom, rgba(201,168,76,0.5), transparent);
+    animation: scrollLine 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  /* ── SECTIONS SHARED ── */
+  section { padding: 90px 40px; }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--green-dark);
+    margin-bottom: 48px;
+    line-height: 1.3;
+  }
+
+  .section-title.light { color: var(--white); }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  /* ── FOR WHO ── */
+  .for-who {
+    background: var(--cream-dark);
+  }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .audience-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 32px 28px;
+    border-top: 3px solid var(--gold);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .audience-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  }
+
+  .audience-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+
+  .audience-card h3 {
+    font-family: 'Amiri', serif;
+    font-size: 1.2rem;
+    color: var(--green-dark);
+    margin-bottom: 10px;
+  }
+
+  .audience-card p {
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-it-works {
+    background: var(--green-dark);
+  }
+
+  .steps-row {
+    display: flex;
+    gap: 0;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .step {
+    flex: 1;
+    min-width: 220px;
+    padding: 0 32px;
+    position: relative;
+    text-align: center;
+  }
+
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 28px;
+    right: -1px;
+    width: 1px;
+    height: 48px;
+    background: rgba(201,168,76,0.25);
+  }
+
+  .step-number {
+    width: 56px;
+    height: 56px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+  }
+
+  .step h3 {
+    font-family: 'Amiri', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .step p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.65;
+  }
+
+  /* ── WHAT YOU GET ── */
+  .what-you-get {
+    background: var(--cream);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .feature-item {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 26px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: border-color 0.2s;
+  }
+
+  .feature-item:hover {
+    border-color: var(--gold);
+  }
+
+  .feature-icon {
+    font-size: 1.8rem;
+  }
+
+  .feature-item h3 {
+    font-family: 'Amiri', serif;
+    font-size: 1.05rem;
+    color: var(--green-dark);
+  }
+
+  .feature-item p {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── PRICING ── */
+  .pricing {
+    background: var(--green-dark);
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .pricing-card {
+    border-radius: 8px;
+    padding: 32px 28px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .pricing-card:hover {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.07);
+  }
+
+  .pricing-card.featured {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.06);
+  }
+
+  .pricing-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--green-dark);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 4px;
+  }
+
+  .pricing-card h3 {
+    font-family: 'Amiri', serif;
+    font-size: 1.25rem;
+    color: var(--white);
+  }
+
+  .pricing-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    font-family: 'Amiri', serif;
+  }
+
+  .pricing-price span {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .pricing-desc {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+
+  .pricing-cta {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--green-dark);
+    padding: 11px 24px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+
+  .pricing-cta:hover { background: var(--gold-light); }
+
+  .pricing-cta.outline {
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: rgba(255,255,255,0.7);
+  }
+
+  .pricing-cta.outline:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+    background: transparent;
+  }
+
+  /* ── FAQ ── */
+  .faq-section {
+    background: var(--cream-dark);
+  }
+
+  .faq-list {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .faq-item {
+    background: var(--white);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: 18px 22px;
+    font-weight: 500;
+    font-size: 0.97rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    color: var(--green-dark);
+    user-select: none;
+  }
+
+  .faq-question::after {
+    content: '+';
+    color: var(--gold);
+    font-size: 1.4rem;
+    font-weight: 300;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .faq-item.open .faq-question::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    display: none;
+    padding: 0 22px 18px;
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 14px;
+  }
+
+  .faq-item.open .faq-answer {
+    display: block;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--green-dark);
+    text-align: center;
+    padding: 80px 40px;
+  }
+
+  .contact-section .section-title {
+    margin-bottom: 24px;
+  }
+
+  .contact-section p {
+    color: rgba(255,255,255,0.6);
+    max-width: 500px;
+    margin: 0 auto 36px;
+    font-size: 0.97rem;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: rgba(255,255,255,0.8);
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.93rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0f2218;
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer p {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  footer a {
+    color: rgba(201,168,76,0.65);
+    text-decoration: none;
+    font-size: 0.82rem;
+  }
+
+  footer a:hover { color: var(--gold); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 680px) {
+    nav { padding: 14px 20px; }
+    section { padding: 60px 24px; }
+    .hero { padding: 100px 24px 70px; }
+    .steps-row { flex-direction: column; gap: 36px; }
+    .step:not(:last-child)::after { display: none; }
+    footer { padding: 20px 24px; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span>نقطة</span>
+    <span class="nav-logo-latin">Nuqta Academy</span>
+  </a>
+  <a href="https://t.me/nuqta_academy_bot" class="nav-cta">Počni besplatno</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-arabic">بِسْمِ اللهِ</div>
+  <h1 class="hero-title">Nauči arapski jezik —<br><em>na bosanskom, za Bošnjake</em></h1>
+  <p class="hero-subtitle">Prva online akademija arapskog jezika namijenjena Bošnjacima i bosanskoj dijaspori.</p>
+  <div class="hero-buttons">
+    <a href="https://t.me/nuqta_academy_bot" class="btn-primary">Počni besplatno</a>
+    <a href="#kursevi" class="btn-secondary">Pogledaj kurseve</a>
+  </div>
+  <div class="hero-scroll">Skroli</div>
+</section>
+
+<!-- FOR WHO -->
+<section class="for-who" id="za-koga">
+  <div class="container">
+    <p class="section-label">Za koga je Nuqta Academy</p>
+    <h2 class="section-title">Učenje koje razumije tvoj put</h2>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-icon">📖</div>
+        <h3>Odrasli koji žele razumjeti Kur'an</h3>
+        <p>Nikad nije kasno. Naučit ćeš čitati, razumjeti i osjećati smisao Allahovih riječi — na tvom jeziku, tvojim tempom.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">🌱</div>
+        <h3>Djeca i mektebski program</h3>
+        <p>Sadržaj prilagođen djeci, usklađen s mektebskim kurikulumom. Učenje koje se nastavlja kod kuće.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">🌍</div>
+        <h3>Dijaspora koja čuva jezik i vjeru</h3>
+        <p>Živiš u Austriji, Njemačkoj, Švedskoj? Nuqta te spaja s korijenima — gdje god bio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="kako-radi">
+  <div class="container">
+    <p class="section-label" style="color:var(--gold-light)">Kako funkcioniše</p>
+    <h2 class="section-title light">Tri koraka do prvog harfa</h2>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-number">١</div>
+        <h3>Registruj se</h3>
+        <p>Otvori Nuqta Academy bot na Telegramu i unesi osnovne podatke. Brzo, lako, bez komplikacija.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">٢</div>
+        <h3>Odaberi kurs</h3>
+        <p>Početnik, terdžvid ili dječiji program — odaberi ono što ti odgovara i odmah počni.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">٣</div>
+        <h3>Uči svaki dan</h3>
+        <p>Kratke lekcije, zadaci, AI ispravka. Pet minuta dnevno gradi naviku koja traje.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="what-you-get" id="sta-dobijas">
+  <div class="container">
+    <p class="section-label">Šta dobijaš</p>
+    <h2 class="section-title">Sve što ti treba — na jednom mjestu</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">🤖</div>
+        <h3>AI ispravka zadataka</h3>
+        <p>Svaki tvoj odgovor analizira AI koji razumije arapsku gramatiku — odmah, bez čekanja.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎥</div>
+        <h3>Video lekcije</h3>
+        <p>Profesor objašnjava gradivo pred tvojim očima — jasno, sporo, na bosanskom.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">✍️</div>
+        <h3>Pet tipova zadataka</h3>
+        <p>Višestruki izbor, prevod, spajanje, pisanje — raznolikost koja održava pažnju.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📊</div>
+        <h3>Praćenje napretka</h3>
+        <p>Vidiš gdje si stao, koliko si naučio, šta te čeka. Tvoj put je pred tobom.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎓</div>
+        <h3>Certifikat završetka</h3>
+        <p>Po završetku kursa dobijаš certifikat koji potvrđuje tvoj trud i znanje.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="kursevi">
+  <div class="container">
+    <p class="section-label" style="color:var(--gold-light)">Kursevi i cijene</p>
+    <h2 class="section-title light">Odaberi svoj put</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card featured">
+        <div>
+          <div class="pricing-badge">Najpopularniji</div>
+          <h3>Početni nivo</h3>
+        </div>
+        <div class="pricing-price">€25 <span>/ kurs</span></div>
+        <p class="pricing-desc">Arapsko pismo, osnovna gramatika, razumijevanje jednostavnih tekstova. Idealno za početnike.</p>
+        <a href="https://t.me/nuqta_academy_bot" class="pricing-cta">Počni odmah</a>
+      </div>
+      <div class="pricing-card">
+        <h3>Terdžvid</h3>
+        <div class="pricing-price">Uskoro <span></span></div>
+        <p class="pricing-desc">Pravila učenja Kur'ana po rivajetu Hafs an Asim. Za one koji žele učiti Kur'an kako treba.</p>
+        <a href="https://t.me/nuqta_academy_bot" class="pricing-cta outline">Obavijesti me</a>
+      </div>
+      <div class="pricing-card">
+        <h3>Dječiji program</h3>
+        <div class="pricing-price">Uskoro <span></span></div>
+        <p class="pricing-desc">Sadržaj prilagođen djeci, vesele lekcije i igre. Idealno uz mektebsku nastavu.</p>
+        <a href="https://t.me/nuqta_academy_bot" class="pricing-cta outline">Obavijesti me</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <p class="section-label">Česta pitanja</p>
+    <h2 class="section-title" style="text-align:center">Imaš pitanje?</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">Trebam li imati predznanje arapskog?</div>
+        <div class="faq-answer">Ne. Početni kurs kreće od nule — od prvog harfa. Dovoljno je da znaš čitati bosanski.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Kako se odvijaju lekcije?</div>
+        <div class="faq-answer">Sve je unutar Telegrama. Otвориš bot, radiš zadatke, gledaš video lekcije, dobijaš povratnu informaciju od AI-a. Nema posebnih aplikacija ni instalacija.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Koliko vremena dnevno trebam?</div>
+        <div class="faq-answer">Pet do petnaest minuta dnevno je sasvim dovoljno. Svaka lekcija je dizajnirana da bude kratka i jasna.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Mogu li se prijaviti iz dijaspore?</div>
+        <div class="faq-answer">Da, platforma je namijenjena upravo Bošnjacima u Bosni i dijaspori — u Austriji, Njemačkoj, Švedskoj, Švicarskoj i svugdje drugdje.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Kako se plaća kurs?</div>
+        <div class="faq-answer">Plaćanje ide putem platforme Whop — karticom, sigurno i brzo. Nakon plaćanja pristup je odmah aktivan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="kontakt">
+  <div class="container">
+    <p class="section-label" style="color:var(--gold-light)">Kontakt</p>
+    <h2 class="section-title light" style="margin-bottom:16px">Tu smo za tebe</h2>
+    <p>Imaš pitanje ili želiš više informacija? Javi nam se — odgovaramo brzo.</p>
+    <div class="contact-links">
+      <a href="https://t.me/nuqta_ba" class="contact-link">💬 Telegram: @nuqta_ba</a>
+      <a href="mailto:mojanuqta@gmail.com" class="contact-link">📧 mojanuqta@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Nuqta Academy</p>
+  <div style="display:flex;gap:20px;align-items:center;">
+    <a href="/privacy.html">Politika privatnosti</a>
+    <a href="mailto:mojanuqta@gmail.com">Kontakt</a>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
