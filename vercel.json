@@ -1,3 +1,6 @@
-json{
-  "cleanUrls": true
+{
+  "rewrites": [
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/info", "destination": "/info.html" }
+  ]
 }
