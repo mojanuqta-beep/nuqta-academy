@@ -453,15 +453,12 @@ if (window.Telegram && window.Telegram.WebApp) {
   }
 }
   
-function showTab(name) {
-  if (name === 'lekcije' && ucenik_status !== 'aktivan') {
-    name = 'kursevi';
+function provjeriLekcije() {
+  if (ucenik_status === 'aktivan') {
+    showTab('lekcije');
+  } else {
+    showTab('kursevi');
   }
-  document.querySelectorAll('.na-tab').forEach(function(t) { t.classList.remove('visible'); });
-  document.querySelectorAll('.na-nav-item').forEach(function(n) { n.classList.remove('active'); });
-  document.getElementById('tab-' + name).classList.add('visible');
-  var navEl = document.getElementById('nav-' + name);
-  if (navEl) navEl.classList.add('active');
 }
 
 function openWhop() {
