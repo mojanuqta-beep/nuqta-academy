@@ -419,7 +419,17 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
 
 <script>
 var korisnikIme = 'Uceniku';
-var odabranaKartica = null;var ucenik_status = '';
+var odabranaKartica = null;
+var ucenik_status = '';
+
+function showTab(ime) {
+  document.querySelectorAll('.na-tab').forEach(function(t) { t.style.display = 'none'; });
+  document.querySelectorAll('.na-nav-item').forEach(function(n) { n.classList.remove('active'); });
+  var tab = document.getElementById('tab-' + ime);
+  if (tab) tab.style.display = 'block';
+  var nav = document.getElementById('nav-' + ime);
+  if (nav) nav.classList.add('active');
+}
 
 if (window.Telegram && window.Telegram.WebApp) {
   var tg = window.Telegram.WebApp;
@@ -431,9 +441,7 @@ if (window.Telegram && window.Telegram.WebApp) {
     document.getElementById('profil-ime').textContent = korisnikIme;
     document.getElementById('kartica-ime').textContent = user.first_name + (user.last_name ? ' ' + user.last_name : '');
   }
-  document.getElementById('tab-lekcije').innerHTML = '<div style="padding:32px 16px;text-align:center;"><div style="font-size:14px;color:#7ab89a;">Provjera pristupa...</div></div>';
   if (user && user.id) {
-    
     fetch('https://hook.eu1.make.com/hvv5wso8gng8qd9sc51xn8wj9hebr51n?telegram_id=' + user.id)
       .then(function(r) { return r.json(); })
       .then(function(data) {
@@ -442,24 +450,24 @@ if (window.Telegram && window.Telegram.WebApp) {
         if (data.bodovi) document.querySelector('.ucenik-kartica-stat-num').textContent = data.bodovi.trim();
         if (data.streak) document.querySelectorAll('.ucenik-kartica-stat-num')[1].textContent = data.streak.trim();
         if (data.status) document.querySelector('.profil-info-value[style]').textContent = data.status.trim();
-        ucenik_status = data.status ? data.status.trim().toLowerCase() : '';
         if (data.nivo) document.querySelector('.ucenik-kartica-nivo').textContent = data.nivo.trim();
-        if (!data.status || data.status.trim().toLowerCase() !== 'aktivan') {
-          document.getElementById('overlay-provjera').style.display = 'none';
+        ucenik_status = data.status ? data.status.trim().toLowerCase() : '';
+        if (ucenik_status !== 'aktivan') {
           document.getElementById('tab-lekcije').innerHTML = '<div style="padding:32px 16px;text-align:center;"><div style="font-size:40px;margin-bottom:16px;">🔒</div><div style="font-size:18px;font-weight:700;color:#e8f5e2;margin-bottom:8px;">Pristup nije aktivan</div><div style="font-size:14px;color:#7ab89a;margin-bottom:24px;">Kupi kurs da otključaš sve lekcije.</div><button class="na-btn na-btn-primary" onclick="openWhop()">Kupi kurs — 25 EUR</button></div>';
-          document.getElementById('tab-kursevi').querySelectorAll('.kurs-btn-otvori').forEach(function(b){ b.style.display='none'; });
-        } else {
-          document.getElementById('tab-lekcije').querySelector('.na-section-title').textContent = 'Modul 1 — aktivan ✓';
+          document.getElementById('tab-kursevi').querySelectorAll('.kurs-btn-otvori').forEach(function(b) { b.style.display = 'none'; });
         }
-          
-        }
+        document.getElementById('overlay-provjera').style.display = 'none';
       })
-.catch(function() {
+      .catch(function() {
+        document.getElementById('overlay-provjera').style.display = 'none';
+      });
+  } else {
     document.getElementById('overlay-provjera').style.display = 'none';
-  });
   }
+} else {
+  document.getElementById('overlay-provjera').style.display = 'none';
 }
-  
+
 function provjeriLekcije() {
   if (ucenik_status === 'aktivan') {
     showTab('lekcije');
@@ -498,11 +506,11 @@ function nastavak(btn, tacno) {
   if (tacno) {
     btn.classList.add('tacna');
     feedback.className = 'nastavak-feedback tacno';
-    feedback.textContent = 'Tacno! Fi al-madrasati znaci u skoli. Prijedlog fi zahtijeva genitiv (kasru) na kraju imenice.';
+    feedback.textContent = 'Tacno! Fi al-madrasati znaci u skoli.';
   } else {
     btn.classList.add('pogresna');
     feedback.className = 'nastavak-feedback pogresno';
-    feedback.textContent = 'Nije tacno. Pokusaj ponovo — radi se o mjestu gdje ucenik provodi dan.';
+    feedback.textContent = 'Nije tacno. Pokusaj ponovo.';
   }
   feedback.style.display = 'block';
 }
@@ -516,19 +524,13 @@ function posaljiPrevod() {
   fetch('https://hook.eu1.make.com/y39tvs22wgu6kdky5tu5xutn9es89joq', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      pitanje: 'Prevedi na arapski: Ucenik je u skoli.',
-      odgovor: odgovor,
-      jezik: 'bosanski',
-      nivo: 'pocetnik'
-    })
+    body: JSON.stringify({ pitanje: 'Prevedi na arapski: Ucenik je u skoli.', odgovor: odgovor, jezik: 'bosanski', nivo: 'pocetnik' })
   })
   .then(function(r) { return r.json(); })
   .then(function(data) {
     document.getElementById('prevod-ocjena').textContent = 'Ocjena: ' + (data.ocjena || '-') + '/100';
     document.getElementById('prevod-komentar').textContent = data.komentar || '';
-    var ispravak = document.getElementById('prevod-ispravak');
-    ispravak.textContent = data.ispravak ? 'Ispravno: ' + data.ispravak : '';
+    document.getElementById('prevod-ispravak').textContent = data.ispravak ? 'Ispravno: ' + data.ispravak : '';
     document.getElementById('prevod-rezultat').style.display = 'block';
     btn.textContent = 'Posalji ponovo';
     btn.disabled = false;
@@ -543,7 +545,6 @@ function posaljiPrevod() {
 function odaberiKarticu(kartica) {
   if (kartica.classList.contains('sparena')) return;
   if (!odabranaKartica) {
-    if (odabranaKartica) odabranaKartica.classList.remove('odabrana');
     kartica.classList.add('odabrana');
     odabranaKartica = kartica;
     return;
@@ -590,19 +591,13 @@ function posaljiAI() {
   fetch('https://hook.eu1.make.com/y39tvs22wgu6kdky5tu5xutn9es89joq', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      pitanje: 'Napisi bilo koju arapsku recenicu s odredjenim clanom el.',
-      odgovor: odgovor,
-      jezik: 'bosanski',
-      nivo: 'pocetnik'
-    })
+    body: JSON.stringify({ pitanje: 'Napisi bilo koju arapsku recenicu s odredjenim clanom el.', odgovor: odgovor, jezik: 'bosanski', nivo: 'pocetnik' })
   })
   .then(function(r) { return r.json(); })
   .then(function(data) {
     document.getElementById('ai-ocjena').textContent = 'Ocjena: ' + (data.ocjena || '-') + '/100';
     document.getElementById('ai-komentar').textContent = data.komentar || '';
-    var ispravak = document.getElementById('ai-ispravak');
-    ispravak.textContent = data.ispravak ? 'Ispravno: ' + data.ispravak : '';
+    document.getElementById('ai-ispravak').textContent = data.ispravak ? 'Ispravno: ' + data.ispravak : '';
     document.getElementById('ai-rezultat').style.display = 'block';
     btn.textContent = 'Posalji ponovo';
     btn.disabled = false;
