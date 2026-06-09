@@ -427,6 +427,19 @@ if (window.Telegram && window.Telegram.WebApp) {
     document.getElementById('profil-ime').textContent = korisnikIme;
     document.getElementById('kartica-ime').textContent = user.first_name + (user.last_name ? ' ' + user.last_name : '');
   }
+  if (user && user.id) {
+    fetch('https://hook.eu1.make.com/hvv5wso8gng8qd9sc51xn8wj9hebr51n?telegram_id=' + user.id)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.ime) document.getElementById('kartica-ime').textContent = data.ime.trim();
+        if (data.kurs) document.querySelector('.ucenik-kartica-kurs').textContent = data.kurs.trim();
+        if (data.bodovi) document.querySelector('.ucenik-kartica-stat-num').textContent = data.bodovi.trim();
+        if (data.streak) document.querySelectorAll('.ucenik-kartica-stat-num')[1].textContent = data.streak.trim();
+        if (data.status) document.querySelector('.profil-info-value[style]').textContent = data.status.trim();
+        if (data.nivo) document.querySelector('.ucenik-kartica-nivo').textContent = data.nivo.trim();
+      })
+      .catch(function() {});
+  }
 }
 
 function showTab(name) {
