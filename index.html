@@ -421,6 +421,7 @@ var odabranaKartica = null;var ucenik_status = '';
 if (window.Telegram && window.Telegram.WebApp) {
   var tg = window.Telegram.WebApp;
   tg.expand();
+  showTab('profil');
   var user = tg.initDataUnsafe && tg.initDataUnsafe.user;
   if (user && user.first_name) {
     korisnikIme = user.first_name;
