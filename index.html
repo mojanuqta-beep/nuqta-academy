@@ -428,6 +428,7 @@ if (window.Telegram && window.Telegram.WebApp) {
     document.getElementById('kartica-ime').textContent = user.first_name + (user.last_name ? ' ' + user.last_name : '');
   }
   if (user && user.id) {
+    console.log('Telegram user:', JSON.stringify(user));
     fetch('https://hook.eu1.make.com/hvv5wso8gng8qd9sc51xn8wj9hebr51n?telegram_id=' + user.id)
       .then(function(r) { return r.json(); })
       .then(function(data) {
