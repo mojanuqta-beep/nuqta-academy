@@ -454,7 +454,9 @@ if (window.Telegram && window.Telegram.WebApp) {
           
         }
       })
-      .catch(function() {});
+.catch(function() {
+    document.getElementById('overlay-provjera').style.display = 'none';
+  });
   }
 }
   
