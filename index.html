@@ -427,6 +427,7 @@ if (window.Telegram && window.Telegram.WebApp) {
     document.getElementById('profil-ime').textContent = korisnikIme;
     document.getElementById('kartica-ime').textContent = user.first_name + (user.last_name ? ' ' + user.last_name : '');
   }
+  document.getElementById('tab-lekcije').innerHTML = '<div style="padding:32px 16px;text-align:center;"><div style="font-size:14px;color:#7ab89a;">Provjera pristupa...</div></div>';
   if (user && user.id) {
     
     fetch('https://hook.eu1.make.com/hvv5wso8gng8qd9sc51xn8wj9hebr51n?telegram_id=' + user.id)
