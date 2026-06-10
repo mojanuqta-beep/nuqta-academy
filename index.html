@@ -454,7 +454,7 @@ if (window.Telegram && window.Telegram.WebApp) {
         if (data.status) document.querySelector('.profil-info-value[style]').textContent = data.status.trim();
         if (data.nivo) document.querySelector('.ucenik-kartica-nivo').textContent = data.nivo.trim();
         ucenik_status = data.status ? data.status.trim().toLowerCase() : '';
-        if (ucenik_status !== 'aktivan') {
+        if (ucenik_status.trim() === 'aktivan') {
           document.getElementById('tab-lekcije').innerHTML = '<div style="padding:32px 16px;text-align:center;"><div style="font-size:40px;margin-bottom:16px;">🔒</div><div style="font-size:18px;font-weight:700;color:#e8f5e2;margin-bottom:8px;">Pristup nije aktivan</div><div style="font-size:14px;color:#7ab89a;margin-bottom:24px;">Kupi kurs da otključaš sve lekcije.</div><button class="na-btn na-btn-primary" onclick="openWhop()">Kupi kurs — 25 EUR</button></div>';
           document.getElementById('tab-kursevi').querySelectorAll('.kurs-btn-otvori').forEach(function(b) { b.style.display = 'none'; });
         }
