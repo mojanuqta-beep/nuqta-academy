@@ -410,6 +410,128 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
     <button class="na-btn na-btn-secondary" onclick="showTab('kursevi')">Nazad na kurseve</button>
   </div>
 </div>
+<div class="na-tab" id="tab-ispit">
+  <div class="proba-back" onclick="showTab('lekcije')">&#x2190; Nazad na lekcije</div>
+  <div class="proba-header">
+    <span class="proba-tag">Ispit modula</span>
+    <div class="proba-title">Modul 1 — Harfovi</div>
+    <div class="proba-meta">10 pitanja | Prag prolaznosti: 70%</div>
+  </div>
+  <div class="proba-body" id="ispit-body">
+
+    <!-- Pitanje 1 -->
+    <div class="proba-zadatak ispit-pitanje" id="ispit-p1">
+      <div class="proba-zadatak-title">Pitanje 1 od 10</div>
+      <div class="proba-zadatak-q">Koji harfovi su "šamsijji" — el se asimilira?</div>
+      <div class="proba-opcije">
+        <button class="proba-opcija" onclick="ispitOdgovor(this,1,true)"><span>ت، ث، د</span></button>
+        <button class="proba-opcija" onclick="ispitOdgovor(this,1,false)"><span>ب، ج، ح</span></button>
+        <button class="proba-opcija" onclick="ispitOdgovor(this,1,false)"><span>ع، غ، ف</span></button>
+      </div>
+    </div>
+
+    <!-- Pitanje 2 -->
+    <div class="proba-zadatak ispit-pitanje" id="ispit-p2">
+      <div class="proba-zadatak-title">Pitanje 2 od 10</div>
+      <div class="proba-zadatak-q">Kako se piše "ta knjiga" na arapskom?</div>
+      <div class="proba-opcije">
+        <button class="proba-opcija" onclick="ispitOdgovor(this,2,true)"><span class="proba-opcija-ar">اَلْكِتَابُ</span></button>
+        <button class="proba-opcija" onclick="ispitOdgovor(this,2,false)"><span class="proba-opcija-ar">كِتَابٌ</span></button>
+        <button class="proba-opcija" onclick="ispitOdgovor(this,2,false)"><span class="proba-opcija-ar">كِتَابُ</span></button>
+      </div>
+    </div>
+
+    <!-- Pitanje 3 -->
+    <div class="proba-zadatak ispit-pitanje" id="ispit-p3">
+      <div class="proba-zadatak-title">Pitanje 3 od 10</div>
+      <div class="proba-zadatak-q">Koliko harfova ima arapski alfabet?</div>
+      <div class="proba-opcije">
+        <button class="proba-opcija" onclick="ispitOdgovor(this,3,true)"><span>28</span></button>
+        <button class="proba-opcija" onclick="ispitOdgovor(this,3,false)"><span>26</span></button>
+        <button class="proba-opcija" onclick="ispitOdgovor(this,3,false)"><span>30</span></button>
+      </div>
+    </div>
+
+    <!-- Pitanje 4 -->
+    <div class="proba-zadatak ispit-pitanje" id="ispit-p4">
+      <div class="proba-zadatak-title">Pitanje 4 od 10</div>
+      <div class="proba-zadatak-q">Koji harfovi se pišu samo s desne strane (ne spajaju lijevo)?</div>
+      <div class="proba-opcije">
+        <button class="proba-opcija" onclick="ispitOdgovor(this,4,true)"><span class="proba-opcija-ar">ا، د، ذ، ر، ز، و</span></button>
+        <button class="proba-opcija" onclick="ispitOdgovor(this,4,false)"><span class="proba-opcija-ar">ب، ت، ث، ن</span></button>
+        <button class="proba-opcija" onclick="ispitOdgovor(this,4,false)"><span class="proba-opcija-ar">ج، ح، خ</span></button>
+      </div>
+    </div>
+
+    <!-- Pitanje 5 -->
+    <div class="proba-zadatak ispit-pitanje" id="ispit-p5">
+      <div class="proba-zadatak-title">Pitanje 5 od 10</div>
+      <div class="proba-zadatak-q">Tačno ili netačno: "Al-qamar" (قَمَر) je primjer kamerijskog člana.</div>
+      <div class="proba-opcije">
+        <button class="proba-opcija" onclick="ispitOdgovor(this,5,true)"><span>Tačno</span></button>
+        <button class="proba-opcija" onclick="ispitOdgovor(this,5,false)"><span>Netačno</span></button>
+      </div>
+    </div>
+
+    <!-- Pitanje 6 -->
+    <div class="proba-zadatak ispit-pitanje" id="ispit-p6">
+      <div class="proba-zadatak-title">Pitanje 6 od 10</div>
+      <div class="proba-zadatak-q">Tačno ili netačno: Tanvin uvijek ide s određenim članom.</div>
+      <div class="proba-opcije">
+        <button class="proba-opcija" onclick="ispitOdgovor(this,6,false)"><span>Tačno</span></button>
+        <button class="proba-opcija" onclick="ispitOdgovor(this,6,true)"><span>Netačno</span></button>
+      </div>
+    </div>
+
+    <!-- Pitanje 7 -->
+    <div class="proba-zadatak ispit-pitanje" id="ispit-p7">
+      <div class="proba-zadatak-title">Pitanje 7 od 10</div>
+      <div class="proba-zadatak-q">Popuni prazninu: ___ + بَيْتٌ = اَلْبَيْتُ</div>
+      <input class="prevod-input" id="ispit-inp7" type="text" placeholder="Upiši odgovor..." style="direction:rtl;text-align:right;">
+      <button class="prevod-posalji" onclick="ispitPopuni(7,'ال')">Potvrdi</button>
+      <div class="proba-feedback" id="ispit-fb7"></div>
+    </div>
+
+    <!-- Pitanje 8 -->
+    <div class="proba-zadatak ispit-pitanje" id="ispit-p8">
+      <div class="proba-zadatak-title">Pitanje 8 od 10</div>
+      <div class="proba-zadatak-q">اَلشَّمْسُ — harf ش je koje vrste?</div>
+      <input class="prevod-input" id="ispit-inp8" type="text" placeholder="šamsijji ili kamerijji...">
+      <button class="prevod-posalji" onclick="ispitPopuni(8,'šamsijji')">Potvrdi</button>
+      <div class="proba-feedback" id="ispit-fb8"></div>
+    </div>
+
+    <!-- Pitanje 9 -->
+    <div class="proba-zadatak ispit-pitanje" id="ispit-p9">
+      <div class="proba-zadatak-title">Pitanje 9 od 10</div>
+      <div class="proba-zadatak-q">كِتَابٌ znači (neodređeno) — šta znači ta riječ?</div>
+      <input class="prevod-input" id="ispit-inp9" type="text" placeholder="Upiši prijevod...">
+      <button class="prevod-posalji" onclick="ispitPopuni(9,'knjiga')">Potvrdi</button>
+      <div class="proba-feedback" id="ispit-fb9"></div>
+    </div>
+
+    <!-- Pitanje 10 -->
+    <div class="proba-zadatak ispit-pitanje" id="ispit-p10">
+      <div class="proba-zadatak-title">Pitanje 10 od 10</div>
+      <div class="proba-zadatak-q">اَلْقَمَرُ — harf ق je koje vrste?</div>
+      <input class="prevod-input" id="ispit-inp10" type="text" placeholder="šamsijji ili kamerijji...">
+      <button class="prevod-posalji" onclick="ispitPopuni(10,'kamerijji')">Potvrdi</button>
+      <div class="proba-feedback" id="ispit-fb10"></div>
+    </div>
+
+    <!-- Rezultat -->
+    <div id="ispit-rezultat" style="display:none; margin-top:16px;">
+      <div class="proba-zadatak" style="text-align:center;">
+        <div id="ispit-rezultat-ocjena" style="font-size:40px;font-weight:700;color:#c9a84c;margin-bottom:8px;"></div>
+        <div id="ispit-rezultat-tekst" style="font-size:16px;color:#e8f5e2;margin-bottom:16px;"></div>
+        <div id="ispit-rezultat-status" style="font-size:14px;margin-bottom:16px;"></div>
+        <button class="na-btn na-btn-primary" onclick="showTab('lekcije')">Nazad na lekcije</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div class="na-nav">
   <div class="na-nav-item active" id="nav-profil" onclick="showTab('profil')">
     <div class="na-nav-icon">&#x1F464;</div>
@@ -588,6 +710,53 @@ function odaberiKarticu(kartica) {
     }, 600);
     odabranaKartica = null;
   }
+}
+
+var ispitRezultati = {};
+var ispitUkupno = 10;
+
+function ispitOdgovor(btn, broj, tacno) {
+  var kontejner = document.getElementById('ispit-p' + broj);
+  kontejner.querySelectorAll('.proba-opcija').forEach(function(o) { o.disabled = true; });
+  if (tacno) {
+    btn.classList.add('tacna');
+    ispitRezultati[broj] = true;
+  } else {
+    btn.classList.add('pogresna');
+    ispitRezultati[broj] = false;
+  }
+  provjeriIspitZavrsen();
+}
+
+function ispitPopuni(broj, tacanOdgovor) {
+  var input = document.getElementById('ispit-inp' + broj);
+  var fb = document.getElementById('ispit-fb' + broj);
+  var odgovor = input.value.trim().toLowerCase();
+  input.disabled = true;
+  if (odgovor === tacanOdgovor.toLowerCase()) {
+    ispitRezultati[broj] = true;
+    fb.className = 'proba-feedback tacno';
+    fb.textContent = 'Tačno!';
+  } else {
+    ispitRezultati[broj] = false;
+    fb.className = 'proba-feedback pogresno';
+    fb.textContent = 'Netačno. Tačan odgovor: ' + tacanOdgovor;
+  }
+  fb.style.display = 'block';
+  provjeriIspitZavrsen();
+}
+
+function provjeriIspitZavrsen() {
+  if (Object.keys(ispitRezultati).length < ispitUkupno) return;
+  var tacni = Object.values(ispitRezultati).filter(Boolean).length;
+  var postotak = Math.round((tacni / ispitUkupno) * 100);
+  var polozio = postotak >= 70;
+  document.getElementById('ispit-rezultat-ocjena').textContent = postotak + '%';
+  document.getElementById('ispit-rezultat-tekst').textContent = tacni + ' od ' + ispitUkupno + ' tačnih odgovora';
+  document.getElementById('ispit-rezultat-status').textContent = polozio ? '✅ Položio si ispit! Sljedeći modul je otključan.' : '❌ Nisi prošao. Potrebno je 70%. Ponovi gradivo i pokušaj ponovo.';
+  document.getElementById('ispit-rezultat-status').style.color = polozio ? '#1a9a64' : '#e74c3c';
+  document.getElementById('ispit-rezultat').style.display = 'block';
+  document.getElementById('ispit-rezultat').scrollIntoView({behavior:'smooth'});
 }
 
 function posaljiAI() {
