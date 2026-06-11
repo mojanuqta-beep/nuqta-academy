@@ -285,7 +285,7 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
   </div>
   <div class="proba-body">
     <div style="position:relative;padding-top:56.25%;margin-bottom:16px;">
-      <iframe src="https://player.mediadelivery.net/embed/680328/0949447c-6f50-465f-88cc-32845a0e56a6?autoplay=false&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;" allowfullscreen="true"></iframe>
+      <iframe src="https://iframe.mediadelivery.net/embed/680328/0949447c-6f50-465f-88cc-32845a0e56a6?autoplay=false&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;" allowfullscreen="true"></iframe>
     </div>
     <div class="proba-explain">
       <div class="proba-explain-title">Objasnjenje</div>
@@ -717,6 +717,27 @@ function odaberiKarticu(kartica) {
 var ispitRezultati = {};
 var ispitUkupno = 10;
 var SHEETS_ID = '12VzwxW1yw8Eh6Mu6RT9BpE9uKMVmPR2BZZS3abKCugU';
+var BUNNY_KEY = '695b8a2d-02f8-4cd6-8b2c-7d4f88b36de0';
+var VIDEO_ID = '0949447c-6f50-465f-88cc-32845a0e56a6';
+var LIBRARY_ID = '680328';
+
+async function getBunnyToken() {
+  var expires = Math.floor(Date.now() / 1000) + 3600;
+  var hashInput = BUNNY_KEY + VIDEO_ID + expires + '';
+  var msgBuffer = new TextEncoder().encode(hashInput);
+  var hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  var hashArray = Array.from(new Uint8Array(hashBuffer));
+  var token = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return { token: token, expires: expires };
+}
+
+async function postaviVideo() {
+  var t = await getBunnyToken();
+  var iframe = document.querySelector('.proba-body iframe');
+  if (iframe) {
+    iframe.src = 'https://iframe.mediadelivery.net/embed/' + LIBRARY_ID + '/' + VIDEO_ID + '?token=' + t.token + '&expires=' + t.expires + '&autoplay=false&loop=false&muted=false&preload=true&responsive=true';
+  }
+}
 
 function ucitajZadatke(idLekcije, callback) {
   var url = 'https://docs.google.com/spreadsheets/d/' + SHEETS_ID + '/gviz/tq?tqx=out:json&sheet=Zadaci';
@@ -812,6 +833,7 @@ function ispitPopuni(broj, tacanOdgovor) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  postaviVideo();
   ucitajZadatke('L1', function(zadaci) {
     if (zadaci.length > 0) {
       prikaziZadatke(zadaci);
