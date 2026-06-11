@@ -419,6 +419,7 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
     <div class="proba-meta">10 pitanja | Prag prolaznosti: 70%</div>
   </div>
   <div class="proba-body" id="ispit-body">
+<div style="padding:32px;text-align:center;"><div class="spinner"></div><div style="font-size:13px;color:#7ab89a;margin-top:8px;">Učitavanje pitanja...</div></div>
 
     <!-- Pitanje 1 -->
     <div class="proba-zadatak ispit-pitanje" id="ispit-p1">
@@ -715,6 +716,69 @@ function odaberiKarticu(kartica) {
 
 var ispitRezultati = {};
 var ispitUkupno = 10;
+var SHEETS_ID = '12VzwxW1yw8Eh6Mu6RT9BpE9uKMVmPR2BZZS3abKCugU';
+
+function ucitajZadatke(idLekcije, callback) {
+  var url = 'https://docs.google.com/spreadsheets/d/' + SHEETS_ID + '/gviz/tq?tqx=out:json&sheet=Zadaci';
+  fetch(url)
+    .then(function(r) { return r.text(); })
+    .then(function(tekst) {
+      var json = JSON.parse(tekst.substring(47).slice(0, -2));
+      var redovi = json.table.rows;
+      var zadaci = [];
+      redovi.forEach(function(red) {
+        var c = red.c;
+        if (!c || !c[0]) return;
+        var lekcija = c[1] ? c[1].v : '';
+        if (lekcija !== idLekcije) return;
+        zadaci.push({
+          id: c[0] ? c[0].v : '',
+          lekcija: lekcija,
+          tip: c[2] ? c[2].v : '',
+          tekst: c[3] ? c[3].v : '',
+          odgovor: c[4] ? c[4].v : '',
+          opcijaA: c[10] ? c[10].v : '',
+          opcijaB: c[11] ? c[11].v : '',
+          opcijaC: c[12] ? c[12].v : '',
+          tacanOdgovor: c[13] ? c[13].v : '',
+          hint: c[7] ? c[7].v : ''
+        });
+      });
+      callback(zadaci);
+    })
+    .catch(function(err) {
+      console.log('Greska pri ucitavanju zadataka:', err);
+      callback([]);
+    });
+}
+
+function prikaziZadatke(zadaci) {
+  var kontejner = document.getElementById('ispit-body');
+  if (!kontejner) return;
+  var html = '';
+  ispitUkupno = zadaci.length;
+  ispitRezultati = {};
+  zadaci.forEach(function(z, i) {
+    var broj = i + 1;
+    html += '<div class="proba-zadatak ispit-pitanje" id="ispit-p' + broj + '">';
+    html += '<div class="proba-zadatak-title">Pitanje ' + broj + ' od ' + zadaci.length + '</div>';
+    html += '<div class="proba-zadatak-q">' + z.tekst + '</div>';
+    if (z.tip === 'izbor') {
+      html += '<div class="proba-opcije">';
+      html += '<button class="proba-opcija" onclick="ispitOdgovor(this,' + broj + ',' + (z.tacanOdgovor === 'A') + ')"><span>' + z.opcijaA + '</span></button>';
+      html += '<button class="proba-opcija" onclick="ispitOdgovor(this,' + broj + ',' + (z.tacanOdgovor === 'B') + ')"><span>' + z.opcijaB + '</span></button>';
+      if (z.opcijaC) html += '<button class="proba-opcija" onclick="ispitOdgovor(this,' + broj + ',' + (z.tacanOdgovor === 'C') + ')"><span>' + z.opcijaC + '</span></button>';
+      html += '</div>';
+    } else if (z.tip === 'praznina') {
+      html += '<input class="prevod-input" id="ispit-inp' + broj + '" type="text" placeholder="' + (z.hint || 'Upiši odgovor...') + '">';
+      html += '<button class="prevod-posalji" onclick="ispitPopuni(' + broj + ',\'' + z.odgovor + '\')">Potvrdi</button>';
+      html += '<div class="proba-feedback" id="ispit-fb' + broj + '"></div>';
+    }
+    html += '</div>';
+  });
+  html += '<div id="ispit-rezultat" style="display:none;margin-top:16px;"><div class="proba-zadatak" style="text-align:center;"><div id="ispit-rezultat-ocjena" style="font-size:40px;font-weight:700;color:#c9a84c;margin-bottom:8px;"></div><div id="ispit-rezultat-tekst" style="font-size:16px;color:#e8f5e2;margin-bottom:16px;"></div><div id="ispit-rezultat-status" style="font-size:14px;margin-bottom:16px;"></div><button class="na-btn na-btn-primary" onclick="showTab(\'lekcije\')">Nazad na lekcije</button></div></div>';
+  kontejner.innerHTML = html;
+}
 
 function ispitOdgovor(btn, broj, tacno) {
   var kontejner = document.getElementById('ispit-p' + broj);
@@ -746,6 +810,14 @@ function ispitPopuni(broj, tacanOdgovor) {
   fb.style.display = 'block';
   provjeriIspitZavrsen();
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  ucitajZadatke('L1', function(zadaci) {
+    if (zadaci.length > 0) {
+      prikaziZadatke(zadaci);
+    }
+  });
+});
 
 function provjeriIspitZavrsen() {
   if (Object.keys(ispitRezultati).length < ispitUkupno) return;
