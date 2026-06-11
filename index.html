@@ -830,6 +830,21 @@ function provjeriIspitZavrsen() {
   document.getElementById('ispit-rezultat-status').style.color = polozio ? '#1a9a64' : '#e74c3c';
   document.getElementById('ispit-rezultat').style.display = 'block';
   document.getElementById('ispit-rezultat').scrollIntoView({behavior:'smooth'});
+  var tgUser = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user;
+  var telegramId = tgUser ? tgUser.id : 'test';
+  var ime = tgUser ? (tgUser.first_name || '') : 'Test';
+  fetch('https://hook.eu1.make.com/l616ekrkfyt54hrffpcfjw8xdbzboys8', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      telegram_id: telegramId,
+      ime: ime,
+      ispit_id: 'M1-ispit',
+      rezultat: postotak,
+      status: polozio ? 'polozio' : 'pao',
+      datum: new Date().toISOString()
+    })
+  });
 }
 
 function posaljiAI() {
