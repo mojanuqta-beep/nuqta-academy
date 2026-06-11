@@ -739,6 +739,65 @@ async function postaviVideo() {
   }
 }
 
+function ucitajLekcije(idModula, callback) {
+  var url = 'https://docs.google.com/spreadsheets/d/' + SHEETS_ID + '/gviz/tq?tqx=out:json&sheet=Lekcije';
+  fetch(url)
+    .then(function(r) { return r.text(); })
+    .then(function(tekst) {
+      var json = JSON.parse(tekst.substring(47).slice(0, -2));
+      var redovi = json.table.rows;
+      var lekcije = [];
+      redovi.forEach(function(red) {
+        var c = red.c;
+        if (!c || !c[0]) return;
+        var modul = c[3] ? c[3].v : '';
+        if (modul !== idModula) return;
+        lekcije.push({
+          id: c[0] ? c[0].v : '',
+          naziv: c[1] ? c[1].v : '',
+          track: c[2] ? c[2].v : '',
+          modul: modul,
+          redni: c[4] ? c[4].v : '',
+          video: c[5] ? c[5].v : '',
+          trajanje: c[6] ? c[6].v : '',
+          opis: c[7] ? c[7].v : '',
+          tezina: c[8] ? c[8].v : '',
+          status: c[9] ? c[9].v : ''
+        });
+      });
+      callback(lekcije);
+    })
+    .catch(function(err) {
+      console.log('Greska pri ucitavanju lekcija:', err);
+      callback([]);
+    });
+}
+
+function prikaziLekcije(lekcije) {
+  var kontejner = document.querySelector('#tab-lekcije .na-section');
+  if (!kontejner) return;
+  var html = '<div class="na-section-title">Modul 1 - Arapska slova</div>';
+  lekcije.forEach(function(l, i) {
+    var ikona = i === 0 ? 'current' : 'locked';
+    var badge = i === 0 ? 'badge-current' : 'badge-locked';
+    var badgeTekst = i === 0 ? 'Nastavi' : 'Zakljucano';
+    var karticaKlasa = i === 0 ? 'active' : 'locked';
+    html += '<div class="na-lesson-card ' + karticaKlasa + '" onclick="otvoriLekciju(\'' + l.id + '\')">';
+    html += '<div class="na-lesson-icon ' + ikona + '">' + (i === 0 ? '&#x25B6;' : '&#x1F512;') + '</div>';
+    html += '<div class="na-lesson-info">';
+    html += '<div class="na-lesson-title">' + l.naziv + '</div>';
+    html += '<div class="na-lesson-sub">' + l.trajanje + ' min - Video + zadatak</div>';
+    html += '</div>';
+    html += '<span class="na-lesson-badge ' + badge + '">' + badgeTekst + '</span>';
+    html += '</div>';
+  });
+  kontejner.innerHTML = html;
+}
+
+function otvoriLekciju(idLekcije) {
+  showTab('proba');
+}
+
 function ucitajZadatke(idLekcije, callback) {
   var url = 'https://docs.google.com/spreadsheets/d/' + SHEETS_ID + '/gviz/tq?tqx=out:json&sheet=Zadaci';
   fetch(url)
@@ -834,6 +893,9 @@ function ispitPopuni(broj, tacanOdgovor) {
 
 document.addEventListener('DOMContentLoaded', function() {
   postaviVideo();
+  ucitajLekcije('M1', function(lekcije) {
+    if (lekcije.length > 0) prikaziLekcije(lekcije);
+  });
   ucitajZadatke('L1', function(zadaci) {
     if (zadaci.length > 0) {
       prikaziZadatke(zadaci);
