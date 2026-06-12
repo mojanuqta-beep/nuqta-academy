@@ -594,6 +594,7 @@ if (window.Telegram && window.Telegram.WebApp) {
       .catch(function() {
         var ov = document.getElementById('overlay-provjera'); if(ov) ov.classList.add('sakriven');
       });
+      fetch('https://hook.eu1.make.com/w4n3gocllvvuxnudpeeydk8wklup5tqf?telegram_id=' + user.id);
   } else {
     var ov = document.getElementById('overlay-provjera'); if(ov) ov.classList.add('sakriven');
   }
