@@ -940,7 +940,7 @@ function zavrsioLekciju(idLekcije) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      tip: 'napredak',
+      tip: 'napredak_lekcije',
       telegram_id: telegramId,
       ime: ime,
       lekcija_id: idLekcije,
