@@ -920,9 +920,8 @@ function ispitPopuni(broj, tacanOdgovor) {
 
 document.addEventListener('DOMContentLoaded', function() {
   postaviVideo();
-  ucitajLekcije('M1', function(lekcije) {
-    if (lekcije.length > 0) prikaziLekcije(lekcije, napredak);
-  });
+ucitajLekcije('M1', function(lekcije, napredak) {
+    if (lekcije.length > 0) prikaziLekcije(lekcije, napredak || {});  });
   ucitajZadatke('L1', function(zadaci) {
     if (zadaci.length > 0) {
       prikaziZadatke(zadaci);
