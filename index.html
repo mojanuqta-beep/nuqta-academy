@@ -407,6 +407,7 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
       </div>
     </div>
 
+    <button class="na-btn na-btn-primary" onclick="zavrsioLekciju('L1')" style="margin-top:8px;background:#1a9a64;">✅ Završio sam lekciju</button>
     <button class="na-btn na-btn-primary" onclick="openWhop()" style="margin-top:8px;">Nastavi ucenje - 25 EUR</button>
     <button class="na-btn na-btn-secondary" onclick="showTab('kursevi')">Nazad na kurseve</button>
   </div>
@@ -928,6 +929,32 @@ function provjeriIspitZavrsen() {
       status: polozio ? 'polozio' : 'pao',
       datum: new Date().toISOString()
     })
+  });
+}
+
+function zavrsioLekciju(idLekcije) {
+  var tgUser = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user;
+  var telegramId = tgUser ? tgUser.id : 'test';
+  var ime = tgUser ? (tgUser.first_name || '') : 'Test';
+  fetch('https://hook.eu1.make.com/l616ekrkfyt54hrffpcfjw8xdbzboys8', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      tip: 'napredak',
+      telegram_id: telegramId,
+      ime: ime,
+      lekcija_id: idLekcije,
+      kurs_id: 'K1',
+      modul_id: 'M1',
+      datum: new Date().toISOString(),
+      status: 'zavrseno'
+    })
+  })
+  .then(function() {
+    alert('Lekcija zabilježena! Nastavljaš odlično.');
+  })
+  .catch(function() {
+    alert('Greška pri slanju.');
   });
 }
 
