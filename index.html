@@ -228,6 +228,7 @@ body { font-family: 'Tajawal', sans-serif; background: #0d1f1a; color: #e8f5e2; 
 </div>
 
 <div class="na-tab" id="tab-lekcije" style="display:none;">
+  <div style="padding:12px 16px 0;"><button class="na-btn na-btn-secondary" onclick="showTab('kursevi')" style="margin-bottom:0;">← Nazad na kurseve</button></div>
   <div class="na-section">
     <div class="na-section-title">Modul 1 - Arapska slova</div>
     <div class="na-lesson-card">
@@ -733,11 +734,10 @@ async function getBunnyToken() {
   return { token: token, expires: expires };
 }
 
-async function postaviVideo() {
-  var t = await getBunnyToken();
+function postaviVideo() {
   var iframe = document.querySelector('.proba-body iframe');
   if (iframe) {
-    iframe.src = 'https://iframe.mediadelivery.net/embed/' + LIBRARY_ID + '/' + VIDEO_ID + '?token=' + t.token + '&expires=' + t.expires + '&autoplay=false&loop=false&muted=false&preload=true&responsive=true';
+    iframe.src = 'https://iframe.mediadelivery.net/embed/680328/0949447c-6f50-465f-88cc-32845a0e56a6?autoplay=false&loop=false&muted=false&preload=true&responsive=true';
   }
 }
 
