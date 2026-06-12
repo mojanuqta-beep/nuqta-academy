@@ -766,34 +766,61 @@ function ucitajLekcije(idModula, callback) {
           status: c[9] ? c[9].v : ''
         });
       });
-      callback(lekcije);
+      ucitajNapredak(function(napredak) { callback(lekcije, napredak); });
     })
     .catch(function(err) {
       console.log('Greska pri ucitavanju lekcija:', err);
       callback([]);
     });
 }
+function ucitajNapredak(callback) {
+    var tgUser = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user;
+    var telegramId = tgUser ? tgUser.id : 'test';
+    var url = 'https://hook.eu1.make.com/n7fded8kdfylxhqulxvy9okoffrkbusu?telegram_id=' + telegramId;
+    fetch(url)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var napredak = {};
+        if (data.napredak_lekcija) {
+          napredak[data.napredak_lekcija] = {
+            postotak: data.napredak_postotak || 0,
+            zavrsena: data.napredak_zavrsena || ''
+          };
+        }
+        callback(napredak);
+      })
+      .catch(function() { callback({}); });
+  }
 
-function prikaziLekcije(lekcije) {
-  var kontejner = document.querySelector('#tab-lekcije .na-section');
-  if (!kontejner) return;
-  var html = '<div class="na-section-title">Modul 1 - Arapska slova</div>';
-  lekcije.forEach(function(l, i) {
-    var ikona = i === 0 ? 'current' : 'locked';
-    var badge = i === 0 ? 'badge-current' : 'badge-locked';
-    var badgeTekst = i === 0 ? 'Nastavi' : 'Zakljucano';
-    var karticaKlasa = i === 0 ? 'active' : 'locked';
-    html += '<div class="na-lesson-card ' + karticaKlasa + '" onclick="otvoriLekciju(\'' + l.id + '\')">';
-    html += '<div class="na-lesson-icon ' + ikona + '">' + (i === 0 ? '&#x25B6;' : '&#x1F512;') + '</div>';
-    html += '<div class="na-lesson-info">';
-    html += '<div class="na-lesson-title">' + l.naziv + '</div>';
-    html += '<div class="na-lesson-sub">' + l.trajanje + ' min - Video + zadatak</div>';
-    html += '</div>';
-    html += '<span class="na-lesson-badge ' + badge + '">' + badgeTekst + '</span>';
-    html += '</div>';
-  });
-  kontejner.innerHTML = html;
-}
+function prikaziLekcije(lekcije, napredak) {
+    var kontejner = document.querySelector('#tab-lekcije .na-section');
+    if (!kontejner) return;
+    var html = '<div class="na-section-title">Moje lekcije</div>';
+    lekcije.forEach(function(l, i) {
+      var zavrsena = napredak && napredak[l.id] && napredak[l.id].zavrsena === 'zavrseno';
+      var prethodna = i === 0 ? null : lekcije[i-1];
+      var prethodnaZavrsena = i === 0 || (napredak && prethodna && napredak[prethodna.id] && parseInt(napredak[prethodna.id].postotak || 0) >= (prethodna.min_postotak || 70));
+      var otkljucana = i === 0 || prethodnaZavrsena;
+      var ikona, badge, badgeTekst, karticaKlasa;
+      if (zavrsena) {
+        ikona = 'done'; badge = 'badge-done'; badgeTekst = 'Završeno'; karticaKlasa = '';
+      } else if (otkljucana) {
+        ikona = 'current'; badge = 'badge-current'; badgeTekst = 'Nastavi'; karticaKlasa = 'active';
+      } else {
+        ikona = 'locked'; badge = 'badge-locked'; badgeTekst = 'Zaključano'; karticaKlasa = 'locked';
+      }
+      var onclick = otkljucana ? ' onclick="otвориLekciju(\'' + l.id + '\')"' : '';
+      html += '<div class="na-lesson-card ' + karticaKlasa + '"' + onclick + '>';
+      html += '<div class="na-lesson-icon ' + ikona + '">' + (zavrsena ? '&#x2713;' : otkljucana ? '&#x25B6;' : '&#x1F512;') + '</div>';
+      html += '<div class="na-lesson-info">';
+      html += '<div class="na-lesson-title">' + l.naziv + '</div>';
+      html += '<div class="na-lesson-sub">' + (l.trajanje || '') + ' min - Video + zadatak</div>';
+      html += '</div>';
+      html += '<span class="na-lesson-badge ' + badge + '">' + badgeTekst + '</span>';
+      html += '</div>';
+    });
+    kontejner.innerHTML = html;
+  }
 
 function otvoriLekciju(idLekcije) {
   showTab('proba');
@@ -895,7 +922,7 @@ function ispitPopuni(broj, tacanOdgovor) {
 document.addEventListener('DOMContentLoaded', function() {
   postaviVideo();
   ucitajLekcije('M1', function(lekcije) {
-    if (lekcije.length > 0) prikaziLekcije(lekcije);
+    if (lekcije.length > 0) prikaziLekcije(lekcije, napredak);
   });
   ucitajZadatke('L1', function(zadaci) {
     if (zadaci.length > 0) {
