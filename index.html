@@ -733,7 +733,6 @@ async function getBunnyToken() {
   var token = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   return { token: token, expires: expires };
 }
-
 function postaviVideo() {
   var iframe = document.querySelector('.proba-body iframe');
   if (iframe) {
