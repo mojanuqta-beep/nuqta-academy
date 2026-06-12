@@ -809,8 +809,7 @@ function prikaziLekcije(lekcije, napredak) {
       } else {
         ikona = 'locked'; badge = 'badge-locked'; badgeTekst = 'Zaključano'; karticaKlasa = 'locked';
       }
-      var onclick = otkljucana ? ' onclick="otvoriLekciju(\'' + l.id + '\')"' : '';
-      html += '<div class="na-lesson-card ' + karticaKlasa + '"' + onclick + '>';
+var onclick = otkljucana ? ' onclick="otvoriLekciju(\'' + l.id + '\')"' : ' onclick="alert(\'Završi prethodnu lekciju sa najmanje 70% tačnih odgovora da otključaš ovu.\')"';      html += '<div class="na-lesson-card ' + karticaKlasa + '"' + onclick + '>';
       html += '<div class="na-lesson-icon ' + ikona + '">' + (zavrsena ? '&#x2713;' : otkljucana ? '&#x25B6;' : '&#x1F512;') + '</div>';
       html += '<div class="na-lesson-info">';
       html += '<div class="na-lesson-title">' + l.naziv + '</div>';
